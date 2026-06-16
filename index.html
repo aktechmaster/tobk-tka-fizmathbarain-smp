@@ -4,7 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>UJIAN TKA NUMERASI SD — Fizmath Brain</title>
-  <link rel="icon" type="image/png" href="fizmath.png">
+  
+  <!-- ✅ PERBAIKAN FAVICON: TAJAM, TIDAK BURAM -->
+  <link rel="icon" type="image/png" href="fizmath.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="fizmath.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="fizmath.png" sizes="48x48">
+  <link rel="icon" type="image/png" href="fizmath.png" sizes="96x96">
+  <style>
+    link[rel="icon"] {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: nearest-neighbor;
+    }
+  </style>
+
   <meta name="color-scheme" content="light dark">
   <style>
     :root{
@@ -18,7 +31,22 @@
     html,body{height:100%;margin:0;background:linear-gradient(180deg,#f0f8ff,#e0f0ff);color:#0b2540}
     body{display:flex;align-items:center;justify-content:center;padding:16px}
     .card{width:780px;max-width:100%;background:var(--card-bg);border-radius:14px;box-shadow:0 8px 30px rgba(11,37,64,0.12);padding:22px;position:relative;box-sizing:border-box;max-height:calc(100vh - 36px);overflow:auto;}
-    h1{font-size:20px;margin:0 0 8px;text-align:center; color: var(--accent); font-weight: 900;}
+    
+    /* ✅ PERBAIKAN LOGO: DIPERBESAR & TAJAM */
+    .logo-header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .logo-header img {
+      height: 85px !important; /* Ukuran pas, tidak kekecil lagi */
+      width: auto !important;
+      object-fit: contain !important;
+      image-rendering: -webkit-optimize-contrast !important;
+      image-rendering: crisp-edges !important;
+      display: inline-block;
+    }
+
+    h1{font-size:22px;margin:0 0 8px;text-align:center; color: var(--accent); font-weight: 900;}
     .meta{font-size:13px;color:var(--muted);margin-bottom:12px;text-align:center}
     .input-group{display:flex;flex-direction:column;margin-bottom:12px}
     label{font-weight:700;margin-bottom:6px;font-size:14px}
@@ -163,8 +191,7 @@
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
-    border: 1px solid #ddd;
+    font-size: 14px; border: 1px solid #ddd;
     transition: all 0.3s ease;
 }
 
@@ -189,8 +216,10 @@
 }
 
   </style>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- ✅ PERBAIKAN LINK MATJAX AGAR TIDAK ERROR -->
+  <script src="https://cdn.jsdelivr.net/npm/polyfill-library@3.111.0/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
       window.MathJax = {
         tex: {
@@ -214,11 +243,11 @@
 
   <div class="card" id="app">
     <div id="start-screen">
-  <div style="text-align:center; margin-bottom:15px;">
-    <img src="fizmath.png" 
-         alt="Fizmath Brain" 
-         style="width:120px; height:auto; display: block; margin: 0 auto;">
+  <!-- ✅ BAGIAN LOGO SUDAH DIPERBAIKI DI SINI -->
+  <div class="logo-header">
+    <img src="fizmath.png" alt="Fizmath Brain">
   </div>
+  
       <h1>TRY OUT TKA NUMERASI SD - FIZMATH BRAIN</h1>
       <p class="meta">Silakan isi data diri sebelum mulai ujian</p>
 
