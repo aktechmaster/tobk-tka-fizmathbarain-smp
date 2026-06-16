@@ -1,5 +1,5 @@
 // Bank Soal TKA Numerikal Kelas 9
-const daftarSoal = [
+window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
   {
     id: 1,
     tipe: "PG",
@@ -84,7 +84,7 @@ const daftarSoal = [
   }
 ];
 
-// WAJIB: Membuka data ke halaman HTML
-if (typeof window !== 'undefined') {
-    window.daftarSoal = daftarSoal;
-}
+// HAPUS baris ini karena sudah langsung masuk ke window di atas
+// if (typeof window !== 'undefined') {
+//     window.daftarSoal = daftarSoal;
+// }
