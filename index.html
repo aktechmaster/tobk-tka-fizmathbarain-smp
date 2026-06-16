@@ -335,8 +335,8 @@
   <!-- ============================================== -->
   <!-- ✅ BAGIAN SCRIPT UTAMA YANG SUDAH DIPERBARUI ✅ -->
   <!-- ============================================== -->
-  <script>
-    let daftarSoal = [];
+ <script>
+    // 🔴 PERBAIKAN: Jangan gunakan 'let daftarSoal = []' agar tidak tabrakan dengan file JS luar
     let currentIndex = 0;
     let jawabanSiswa = {};
     let skorTotal = 0;
@@ -362,15 +362,14 @@
         const scriptSoal = document.createElement('script');
         scriptSoal.src = 'soal_tka_num_9.js'; // Pastikan nama file sesuai
         scriptSoal.onload = () => {
-  // Ambil data dari window, pastikan tidak kosong
-  if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
-    daftarSoal = window.daftarSoal;
-    mulaiUjian();
-  } else {
-    alert('File soal dimuat tetapi datanya kosong!');
-    console.log('Isi window.daftarSoal:', window.daftarSoal); // Untuk cek di konsol jika masih gagal
-  }
-};
+          // Ambil data dari window, pastikan tidak kosong
+          if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
+            mulaiUjian();
+          } else {
+            alert('File soal dimuat tetapi datanya kosong!');
+            console.log('Isi window.daftarSoal:', window.daftarSoal);
+          }
+        };
         scriptSoal.onerror = () => {
           alert('Gagal memuat file soal_tka_num_9.js. Pastikan file ada di folder yang sama.');
         };
@@ -391,7 +390,7 @@
     // Membuat tombol navigasi kotak-kotak
     function buatNavigasiSoal() {
       questionNav.innerHTML = '';
-      daftarSoal.forEach((soal, idx) => {
+      window.daftarSoal.forEach((soal, idx) => { // 🔴 Gunakan window.daftarSoal
         const navItem = document.createElement('div');
         navItem.className = 'nav-item unanswered';
         navItem.textContent = idx + 1;
@@ -403,10 +402,10 @@
     // Fungsi utama menampilkan soal
     function tampilkanSoal(idx) {
       currentIndex = idx;
-      const soal = daftarSoal[idx];
+      const soal = window.daftarSoal[idx]; // 🔴 Gunakan window.daftarSoal
       
       // Update indikator halaman
-      pageIndicator.textContent = `Soal ${idx + 1} dari ${daftarSoal.length}`;
+      pageIndicator.textContent = `Soal ${idx + 1} dari ${window.daftarSoal.length}`; // 🔴 Gunakan window.daftarSoal
       
       // Tandai navigasi aktif
       document.querySelectorAll('.nav-item').forEach((el, i) => {
@@ -470,7 +469,7 @@
 
       // Atur tombol Sebelumnya / Selanjutnya / Selesai
       prevBtn.disabled = idx === 0;
-      if(idx === daftarSoal.length - 1) {
+      if(idx === window.daftarSoal.length - 1) { // 🔴 Gunakan window.daftarSoal
         nextBtn.textContent = 'SELESAI & NILAI';
         nextBtn.onclick = tampilkanHasil;
       } else {
@@ -497,10 +496,11 @@
     }
 
     // Menghitung Skor
+    ui
     function hitungSkor() {
       let benar = 0;
       let totalNilai = 0;
-      daftarSoal.forEach((soal, idx) => {
+      window.daftarSoal.forEach((soal, idx) => { // 🔴 Gunakan window.daftarSoal
         const nilaiSoal = parseInt(soal.rentangNilai.split('–')[1]); // Ambil nilai maks
         if(soal.tipe === 'PG') {
           if(jawabanSiswa[idx] === soal.kunciJawaban) {
@@ -517,7 +517,7 @@
           }
         }
       });
-      return {benar, totalNilai, maksNilai: daftarSoal.reduce((sum, s) => sum + parseInt(s.rentangNilai.split('–')[1]), 0)};
+      return {benar, totalNilai, maksNilai: window.daftarSoal.reduce((sum, s) => sum + parseInt(s.rentangNilai.split('–')[1]), 0)}; // 🔴 Gunakan window.daftarSoal
     }
 
     // Tampilan Hasil Akhir
@@ -533,12 +533,12 @@
               <span>Benar</span>
             </div>
             <div class="result-item wrong">
-              <span class="result-val">${daftarSoal.length - hasil.benar}</span>
+              <span class="result-val">${window.daftarSoal.length - hasil.benar}</span> 
               <span>Salah</span>
             </div>
           </div>
         </div>
-      `;
+      `; // 🔴 Gunakan window.daftarSoal pada total salah
       controls.style.display = 'none';
       questionNav.style.display = 'none';
     }
