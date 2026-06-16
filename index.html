@@ -72,7 +72,7 @@
 
 .nav-item {
     aspect-ratio: 1 / 1; 
-    width: 100%;
+    width: 100%; 
     max-width: 35px; 
     display: flex;
     align-items: center;
@@ -331,6 +331,220 @@
     <p>Detik</p>
   </div>
 </div>  
+
+  <!-- ============================================== -->
+  <!-- ✅ BAGIAN SCRIPT UTAMA YANG SUDAH DIPERBARUI ✅ -->
+  <!-- ============================================== -->
+  <script>
+    let daftarSoal = [];
+    let currentIndex = 0;
+    let jawabanSiswa = {};
+    let skorTotal = 0;
+
+    // Elemen HTML
+    const startScreen = document.getElementById('start-screen');
+    const quizArea = document.getElementById('quiz-area');
+    const controls = document.getElementById('controls');
+    const questionNav = document.getElementById('questionNav');
+    const startBtn = document.getElementById('startBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageIndicator = document.getElementById('pageIndicator');
+
+    // Fungsi memuat file soal sesuai pilihan
+    startBtn.addEventListener('click', () => {
+      const kelas = document.getElementById('kelas').value;
+      const mapel = document.getElementById('mapel').value;
+
+      // ✅ KONDISI PEMANGGILAN SOAL KELAS 9 NUMERIKAL
+      if (kelas === '9' && mapel === 'TKA Numerasi (Matematika)') {
+        // Membuat tag script untuk memuat soal-tka-num-9.js
+        const scriptSoal = document.createElement('script');
+        scriptSoal.src = 'soal-tka-num-9.js'; // Pastikan nama file sesuai
+        scriptSoal.onload = () => {
+          daftarSoal = window.daftarSoal || [];
+          if(daftarSoal.length > 0) {
+            mulaiUjian();
+          } else {
+            alert('File soal dimuat tetapi datanya kosong!');
+          }
+        };
+        scriptSoal.onerror = () => {
+          alert('Gagal memuat file soal-tka-num-9.js. Pastikan file ada di folder yang sama.');
+        };
+        document.body.appendChild(scriptSoal);
+      } else {
+        alert('Untuk sementara hanya Kelas 9 - TKA Numerasi yang tersedia.');
+      }
+    });
+
+    function mulaiUjian() {
+      startScreen.style.display = 'none';
+      quizArea.style.display = 'block';
+      controls.style.display = 'flex';
+      buatNavigasiSoal();
+      tampilkanSoal(0);
+    }
+
+    // Membuat tombol navigasi kotak-kotak
+    function buatNavigasiSoal() {
+      questionNav.innerHTML = '';
+      daftarSoal.forEach((soal, idx) => {
+        const navItem = document.createElement('div');
+        navItem.className = 'nav-item unanswered';
+        navItem.textContent = idx + 1;
+        navItem.onclick = () => tampilkanSoal(idx);
+        questionNav.appendChild(navItem);
+      });
+    }
+
+    // Fungsi utama menampilkan soal
+    function tampilkanSoal(idx) {
+      currentIndex = idx;
+      const soal = daftarSoal[idx];
+      
+      // Update indikator halaman
+      pageIndicator.textContent = `Soal ${idx + 1} dari ${daftarSoal.length}`;
+      
+      // Tandai navigasi aktif
+      document.querySelectorAll('.nav-item').forEach((el, i) => {
+        el.classList.remove('active');
+        if(i === idx) el.classList.add('active');
+        if(jawabanSiswa[i] !== undefined) el.classList.add('answered');
+      });
+
+      let htmlSoal = `
+        <div class="qno">
+          <span>Soal Nomor ${idx + 1}</span>
+          <span class="badge-type">${soal.tipe} | ${soal.tingkatKesulitan} (${soal.rentangNilai})</span>
+        </div>
+        <div class="question">${soal.soal}</div>
+      `;
+
+      // Tampilkan Gambar jika ada
+      if(soal.gambar) {
+        htmlSoal += `<img src="${soal.gambar}" alt="Gambar Soal" style="max-width:100%; border-radius:8px; margin: 8px 0;">`;
+      }
+
+      // Render berdasarkan Tipe Soal
+      if(soal.tipe === 'PG') {
+        htmlSoal += `<div class="choices">`;
+        soal.pilihan.forEach((pil, noPil) => {
+          const huruf = String.fromCharCode(65 + noPil);
+          const terpilih = jawabanSiswa[idx] === huruf ? 'selected' : '';
+          htmlSoal += `
+            <label class="choice ${terpilih}">
+              <input type="radio" name="jawaban${idx}" value="${huruf}" 
+                ${jawabanSiswa[idx] === huruf ? 'checked' : ''} 
+                onchange="simpanJawaban(${idx}, '${huruf}')">
+              ${pil}
+            </label>
+          `;
+        });
+        htmlSoal += `</div>`;
+      } 
+      else if(soal.tipe === 'PGK') {
+        htmlSoal += `<div class="choices">`;
+        soal.pilihan.forEach((pil, noPil) => {
+          const terpilih = jawabanSiswa[idx]?.includes(noPil) ? 'selected' : '';
+          htmlSoal += `
+            <label class="choice ${terpilih}">
+              <input type="checkbox" name="jawaban${idx}" value="${noPil}" 
+                ${jawabanSiswa[idx]?.includes(noPil) ? 'checked' : ''} 
+                onchange="tambahJawabanPGK(${idx}, ${noPil}, this.checked)">
+              ${pil}
+            </label>
+          `;
+        });
+        htmlSoal += `</div>`;
+      }
+
+      quizArea.innerHTML = htmlSoal;
+
+      // Panggil MathJax agar rumus matematika dirender ulang
+      if (window.MathJax) {
+        MathJax.typesetPromise && MathJax.typesetPromise([quizArea]);
+      }
+
+      // Atur tombol Sebelumnya / Selanjutnya / Selesai
+      prevBtn.disabled = idx === 0;
+      if(idx === daftarSoal.length - 1) {
+        nextBtn.textContent = 'SELESAI & NILAI';
+        nextBtn.onclick = tampilkanHasil;
+      } else {
+        nextBtn.textContent = 'Selanjutnya';
+        nextBtn.onclick = () => tampilkanSoal(idx + 1);
+      }
+    }
+
+    // Fungsi simpan jawaban PG
+    function simpanJawaban(idx, jawaban) {
+      jawabanSiswa[idx] = jawaban;
+      document.querySelectorAll('.nav-item')[idx].classList.remove('unanswered');
+      document.querySelectorAll('.nav-item')[idx].classList.add('answered');
+    }
+
+    // Fungsi simpan jawaban PGK (Banyak jawaban benar)
+    function tambahJawabanPGK(idx, nilai, dicek) {
+      if(!jawabanSiswa[idx]) jawabanSiswa[idx] = [];
+      if(dicek) jawabanSiswa[idx].push(nilai);
+      else jawabanSiswa[idx] = jawabanSiswa[idx].filter(n => n !== nilai);
+      if(jawabanSiswa[idx].length > 0) {
+        document.querySelectorAll('.nav-item')[idx].classList.add('answered');
+      }
+    }
+
+    // Menghitung Skor
+    function hitungSkor() {
+      let benar = 0;
+      let totalNilai = 0;
+      daftarSoal.forEach((soal, idx) => {
+        const nilaiSoal = parseInt(soal.rentangNilai.split('–')[1]); // Ambil nilai maks
+        if(soal.tipe === 'PG') {
+          if(jawabanSiswa[idx] === soal.kunciJawaban) {
+            benar++;
+            totalNilai += nilaiSoal;
+          }
+        }
+        if(soal.tipe === 'PGK') {
+          const jawabanUser = jawabanSiswa[idx] || [];
+          const kunci = soal.kunciJawaban;
+          if(JSON.stringify(jawabanUser.sort()) === JSON.stringify(kunci.sort())) {
+            benar++;
+            totalNilai += nilaiSoal;
+          }
+        }
+      });
+      return {benar, totalNilai, maksNilai: daftarSoal.reduce((sum, s) => sum + parseInt(s.rentangNilai.split('–')[1]), 0)};
+    }
+
+    // Tampilan Hasil Akhir
+    function tampilkanHasil() {
+      const hasil = hitungSkor();
+      quizArea.innerHTML = `
+        <div class="result-box">
+          <div class="result-score-label">Skor Akhir</div>
+          <div class="result-score-value">${hasil.totalNilai} / ${hasil.maksNilai}</div>
+          <div class="result-details">
+            <div class="result-item correct">
+              <span class="result-val">${hasil.benar}</span>
+              <span>Benar</span>
+            </div>
+            <div class="result-item wrong">
+              <span class="result-val">${daftarSoal.length - hasil.benar}</span>
+              <span>Salah</span>
+            </div>
+          </div>
+        </div>
+      `;
+      controls.style.display = 'none';
+      questionNav.style.display = 'none';
+    }
+
+    // Navigasi Tombol
+    prevBtn.onclick = () => tampilkanSoal(currentIndex - 1);
+
+  </script>
 
 </body>
 </html>
