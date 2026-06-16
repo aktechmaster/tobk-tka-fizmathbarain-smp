@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>UJIAN TKA NUMERASI SD — Fizmath Brain</title>
+  <link rel="icon" type="image/png" href="fizmath.png">
+  <meta name="color-scheme" content="light dark">
+  <style>
+    :root{
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      --accent: #0088CC; /* Warna biru utama dari gambar */
+      --secondary: #FFCC00; /* Warna kuning dari gambar */
+      --danger: #b91c1c;
+      --muted: #51657a;
+      --card-bg: #fff;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#f0f8ff,#e0f0ff);color:#0b2540}
+    body{display:flex;align-items:center;justify-content:center;padding:16px}
+    .card{width:780px;max-width:100%;background:var(--card-bg);border-radius:14px;box-shadow:0 8px 30px rgba(11,37,64,0.12);padding:22px;position:relative;box-sizing:border-box;max-height:calc(100vh - 36px);overflow:auto;}
+    h1{font-size:20px;margin:0 0 8px;text-align:center; color: var(--accent); font-weight: 900;}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:12px;text-align:center}
+    .input-group{display:flex;flex-direction:column;margin-bottom:12px}
+    label{font-weight:700;margin-bottom:6px;font-size:14px}
+    input, select, button {padding:12px;border-radius:10px;border:1px solid #d5e0ec;font-size:16px;box-sizing:border-box;}
+    input[type="text"], select{background:#fbfeff;}
+    .start-btn{margin-top:12px;width:100%;padding:14px;background: linear-gradient(135deg, var(--accent), #0066aa);color:#fff;border:0;border-radius:10px;font-weight:900;cursor:pointer;font-size:17px; transition: 0.3s;}
+    .start-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,136,204,0.2); }
+    .qno{font-weight:800;margin-bottom:8px;font-size:14px; display:flex; justify-content:space-between; align-items:center;}
+    .badge-type { background: #eef6ff; color: var(--accent); padding: 4px 8px; border-radius: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid rgba(31,141,214,0.2); }
+    .question{font-size:18px;margin-bottom:12px;line-height:1.35}
+    .choices{display:flex;flex-direction:column;gap:10px}
+    
+/* --- NAVIGASI KOTAK PRESISI (VERSI DIPERKECIL) --- */
+.question-nav {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 6px; 
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    max-width: 250px; 
+    margin: 10px auto;
+}
+
+.nav-item {
+    aspect-ratio: 1 / 1; 
+    width: 100%;
+    max-width: 35px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 8px; 
+    cursor: pointer;
+    border-radius: 6px; 
+    background-color: var(--secondary);
+    color: #333;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+@media (min-width: 600px) {
+    .question-nav {
+        grid-template-columns: repeat(10, 1fr);
+        max-width: 420px; 
+    }
+}
+
+    /* Style Pilihan */
+    label.choice{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;border:1px solid #e6eef8;cursor:pointer;font-size:16px;user-select:none;background:#fbfeff; transition: all 0.2s;}
+    label.choice:hover { background: #f0f7ff; border-color: var(--accent); }
+    label.choice.selected { background: #e6f2ff; border-color: var(--accent); font-weight: 600; }
+
+    /* Style Tabel Benar/Salah */
+    .bs-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #e6eef8; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+    .bs-table th, .bs-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e6eef8; }
+    .bs-table th { background: #f0f7ff; font-weight: 700; color: #0b4f7a; font-size: 14px; }
+    .bs-table td:first-child { width: 60%; font-size: 15px; }
+    .bs-table td.opt { text-align: center; width: 20%; background: #fafcff; cursor: pointer; }
+    .bs-table tr:last-child td { border-bottom: none; }
+    .bs-radio { transform: scale(1.2); accent-color: var(--accent); cursor: pointer; }
+
+    input[type="radio"], input[type="checkbox"] {accent-color:var(--accent);width:20px;height:20px; cursor: pointer;}
+    
+    /* Style Kotak Hasil (Result Box) */
+    .result-box { background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%); border: 2px solid #e6eef8; border-radius: 16px; padding: 24px; margin: 20px 0; text-align: center; box-shadow: 0 10px 30px rgba(31,141,214,0.15); }
+    .result-score-label { font-size: 14px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .result-score-value { font-size: 48px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 16px; }
+    .result-details { display: flex; justify-content: center; gap: 20px; border-top: 1px solid #dae7f5; padding-top: 16px; }
+    .result-item { font-size: 15px; font-weight: 700; display: flex; flex-direction: column; align-items: center; }
+    .result-item.correct { color: #10b981; } 
+    .result-item.wrong { color: #ef4444; }   
+    .result-val { font-size: 20px; font-weight: 900; }
+
+    .controls{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:12px}
+    .big-btn {background:var(--accent);color:#fff;border:0;padding:12px 16px;border-radius:10px;cursor:pointer;font-weight:800;font-size:16px;min-width:120px;}
+    .big-btn.secondary{background:#eef6ff;color:var(--accent);border:1px solid rgba(31,141,214,0.14)}
+    .page-indicator{font-size:14px;color:var(--muted);font-weight:700}
+    
+    .finish-screen{text-align:center;padding:18px}
+    .finish-blue { color:#007bff;font-weight:900;font-size:20px }
+    .finish-warning { color:var(--danger);font-weight:900;font-size:20px }
+    
+    .top-badge {position:fixed;z-index:9999;font-weight:700;display:flex;gap:8px;align-items:center;font-size:13px;padding:8px 12px;border-radius:10px;box-shadow:0 6px 20px rgba(11,37,64,0.12);background:linear-gradient(180deg,#ffffff,#f1f8ff);}
+    .badge-violation{left:12px;top:12px;border:2px solid rgba(255,86,86,0.12)}
+    .badge-timer{right:12px;top:12px;border:2px solid rgba(31,141,214,0.10)}
+    .violation-count{color:var(--danger)}
+    .timer-text{color:#0b4f7a}
+    
+    .overlay{position:fixed;inset:0;background:rgba(11,37,64,0.45);display:flex;align-items:center;justify-content:center;z-index:10000;padding:20px}
+    .warning-modal{width:720px;max-width:98%;background:#fff;border-radius:12px;padding:20px;text-align:center;box-shadow:0 12px 40px rgba(11,37,64,0.25);border-left:8px solid #f59e0b}
+    .muted{font-weight:700;color:var(--muted);font-size:13px;text-align:center;margin-top:8px}
+    .hidden{display:none!important}
+    
+    @media (max-width:640px){body{padding:10px}.card{padding:16px;border-radius:12px}h1{font-size:18px}input, select, label.choice, .question{font-size:16px}.start-btn{padding:14px;font-size:18px;border-radius:12px}.big-btn{min-width:100px;padding:12px;border-radius:12px;font-size:16px}.warning-modal{padding:18px}}
+
+    /* --- INI GAYA UNTUK KOTAK NILAI --- */
+.result-box {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+  border: 2px solid #e6eef8;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(31,141,214,0.15);
+}
+.result-score-label { font-size: 14px; font-weight: 700; color: #51657a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.result-score-value { font-size: 48px; font-weight: 900; color: #1f8dd6; line-height: 1; margin-bottom: 16px; }
+.result-details { display: flex; justify-content: center; gap: 20px; border-top: 1px solid #dae7f5; padding-top: 16px; }
+.result-item { font-size: 15px; font-weight: 700; display: flex; flex-direction: column; align-items: center; }
+.result-item.correct { color: #10b981; } 
+.result-item.wrong { color: #ef4444; }   
+.result-val { font-size: 20px; font-weight: 900; }
+
+/* --- CSS LAYAR HUKUMAN (BLACK SCREEN) --- */
+#layar-penalti {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.98);
+  z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  color: white; text-align: center; font-family: sans-serif;
+}
+.hukuman-box h1 { font-size: 40px; color: #ff4444; margin-bottom: 10px; }
+.hukuman-box p { font-size: 18px; }
+#timer-penalti { font-size: 80px; font-weight: 900; color: #ff4444; margin: 20px 0; }
+
+/* Container Navigasi Nomor Soal */
+.question-nav {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 12px;
+}
+
+.nav-item {
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+/* Warna Kuning: Belum Dijawab */
+.nav-item.unanswered {
+    background-color: var(--secondary);
+    color: #000;
+    border-color: #fbc02d;
+}
+
+/* Warna Biru: Sudah Dijawab */
+.nav-item.answered {
+    background-color: var(--accent);
+    color: #fff;
+    border-color: #0066aa;
+}
+
+/* Warna Putih/Border Biru: Soal yang Sedang Dibuka */
+.nav-item.active {
+    outline: 3px solid #ff5722;
+    transform: scale(1.05);
+}
+
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+</head>
+<body>
+
+  <div class="top-badge badge-violation hidden" id="violationBadge">
+    <div>PELANGGARAN:</div>
+    <div class="violation-count" id="violationCount">0</div>
+    <div style="margin-left:8px;color:var(--muted);font-weight:700">/ 5</div>
+  </div>
+
+  <div class="top-badge badge-timer hidden" id="timerBadge">
+    <div>WAKTU:</div>
+    <div class="timer-text" id="timerText">60:00</div>
+  </div>
+
+  <div class="card" id="app">
+    <div id="start-screen">
+  <div style="text-align:center; margin-bottom:15px;">
+    <img src="fizmath.png" 
+         alt="Fizmath Brain" 
+         style="width:120px; height:auto; display: block; margin: 0 auto;">
+  </div>
+      <h1>TRY OUT TKA NUMERASI SD - FIZMATH BRAIN</h1>
+      <p class="meta">Silakan isi data diri sebelum mulai ujian</p>
+
+      <div class="input-group">
+        <label for="nama">Nama Lengkap</label>
+        <input type="text" id="nama" autocomplete="name" oninput="this.value = this.value.toUpperCase()"/>
+      </div>
+
+      <div class="input-group">
+        <label for="kelas">Kelas</label>
+        <select id="kelas">
+          <option value="">- Pilih Kelas -</option>
+          <option value="4">Kelas 4</option>
+          <option value="5">Kelas 5</option>
+          <option value="6">Kelas 6</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="mapel">Mata Pelajaran</label>
+        <select id="mapel">
+            <option value="TKA NUMERASI (MATEMATIKA)">TKA NUMERASI (MATEMATIKA)</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="asal">Asal Sekolah / Instansi</label>
+        <input type="text" id="asal" oninput="this.value = this.value.toUpperCase()"/>
+      </div>
+
+      <div class="input-group">
+        <label for="nomor">Nomor Ujian / Peserta</label>
+        <input type="text" id="nomor" inputmode="numeric" pattern="[0-9]*" placeholder="Hanya angka" />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password Akses</label>
+        <input type="text" id="password" placeholder="Masukkan password ujian" />
+      </div>
+
+      <button class="start-btn" id="startBtn">MULAI UJIAN</button>
+      <p class="muted"><b>Catatan</b>: Pindah tab / keluar aplikasi akan dihitung sebagai pelanggaran. Maksimal 5 Kali</p>
+      <div style="text-align: center; margin-top: 50px; font-size: 11px; opacity: 0.7; color: rgb(0, 0, 0);">
+    &copy; 2026 Fizmath Brain | Bimbingan Belajar SD - SMA
+</div>
+    </div>
+
+    <div id="quiz-area" style="display:none"></div>
+
+    <div class="controls" id="controls" style="display:none">
+      <div class="left">
+        <button class="big-btn secondary" id="prevBtn">Sebelumnya</button>
+      </div>
+      <div class="right">
+        <div class="page-indicator" id="pageIndicator"></div>
+        <button class="big-btn" id="nextBtn">Selanjutnya</button>
+      </div>
+    </div>
+  <div id="questionNav" class="question-nav"></div>
+
+
+
+  <div id="overlay" class="overlay hidden" aria-hidden="true">
+    <div class="warning-modal" role="dialog">
+      <h2>⚠️ PERINGATAN!</h2>
+      <p id="warningDesc">ANDA MELAKUKAN PELANGGARAN</p>
+      <div id="warningExtra" style="margin-bottom:12px;font-weight:800;color:#0b2540"></div>
+      <button id="warningOk">TUTUP</button>
+    </div>
+  </div>
+
+<div id="layar-penalti" class="hidden">
+  <div class="hukuman-box">
+    <h1>⚠️ PELANGGARAN ⚠️</h1>
+    <p>Anda terdeteksi meninggalkan halaman ujian.</p>
+    <p>Sistem dikunci sementara:</p>
+    <div id="timer-penalti">30</div>
+    <p>Detik</p>
+  </div>
+</div>  
+
+</body>
+</html>
