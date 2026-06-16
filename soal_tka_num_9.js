@@ -8,6 +8,7 @@
 // - Sulit: 14 – 16
 // - Sangat Sulit: 17 – 20
 
+// ✅ NAMA VARIABEL HARUS PERSIS: daftarSoal
 const daftarSoal = [
   {
     id: 1,
@@ -40,7 +41,7 @@ const daftarSoal = [
       "Dapat diperkirakan dengan 20 × 12.500,00",
       "Mendekati Rp230.000,00"
     ],
-    kunciJawaban: [0, 1, 2] // Indeks jawaban yang benar (dimulai dari 0)
+    kunciJawaban: [0, 1, 2]
   },
   {
     id: 3,
@@ -57,7 +58,7 @@ const daftarSoal = [
       "2<sup>2</sup> × 3<sup>2</sup> × 5",
       "2 × 3<sup>2</sup> × 5"
     ],
-    kunciJawaban: [2, 3] // Indeks jawaban yang benar (dimulai dari 0)
+    kunciJawaban: [2, 3]
   },
   {
     id: 4,
@@ -93,7 +94,5 @@ const daftarSoal = [
   }
 ];
 
-// Ekspor variabel agar bisa dibaca file HTML
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = daftarSoal;
-}
+// ✅ Wajib ada baris ini agar variabel terbaca oleh HTML
+window.daftarSoal = daftarSoal;
