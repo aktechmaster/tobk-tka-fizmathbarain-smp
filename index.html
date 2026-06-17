@@ -332,8 +332,8 @@
   </div>
 </div>  
 
-  <!-- ============================================== -->
-  <!-- ✅ BAGIAN SCRIPT UTAMA YANG SUDAH DIPERBARUI ✅ -->
+    <!-- ============================================== -->
+  <!-- ✅ BAGIAN SCRIPT YANG SUDAH DIPERBAIKI TOTAL ✅ -->
   <!-- ============================================== -->
  <script>
     let currentIndex = 0;
@@ -387,14 +387,15 @@
     // Cek apakah pengguna sedang dalam ujian saat halaman dimuat
     window.onload = () => {
         // ✅ Cek kalau ujian SUDAH SELESAI, langsung ke halaman login
-    if (sessionStorage.getItem('ujianSelesai') === 'true') {
-        sessionStorage.removeItem('ujianSelesai'); // Bersihkan tanda
-        startScreen.style.display = 'block';
-        quizArea.style.display = 'none';
-        controls.style.display = 'none';
-        questionNav.style.display = 'none';
-        return; // Berhenti di sini, jangan muat soal
-    }
+        if (sessionStorage.getItem('ujianSelesai') === 'true') {
+            sessionStorage.removeItem('ujianSelesai'); // Bersihkan tanda
+            startScreen.style.display = 'block';
+            quizArea.style.display = 'none';
+            controls.style.display = 'none';
+            questionNav.style.display = 'none';
+            return; // Berhenti di sini, jangan muat soal
+        }
+        
         const dataTersimpan = ambilDataDariStorage();
         if (dataTersimpan) {
             // Isi kembali formulir dengan data sebelumnya
@@ -406,15 +407,17 @@
             jawabanSiswa = dataTersimpan.jawaban || {};
             
             // Panggil ulang soal dan lanjutkan ujian
-let namaFileSoal = `soal_tka_gabungan_${dataTersimpan.kelas}.js`;
+            let namaFileSoal = `soal_tka_gabungan_${dataTersimpan.kelas}.js`;
 
             const scriptSoal = document.createElement('script');
             scriptSoal.src = namaFileSoal; 
             scriptSoal.onload = () => {
-                if (window.daftarSoal) {
-                    mulaiUjian();
-                    tampilkanSoal(dataTersimpan.halamanAktif || 0); // Buka di halaman terakhir
-                }
+                setTimeout(() => {
+                    if (window.daftarSoal) {
+                        mulaiUjian();
+                        tampilkanSoal(dataTersimpan.halamanAktif || 0); // Buka di halaman terakhir
+                    }
+                }, 100);
             };
             document.body.appendChild(scriptSoal);
         }
@@ -444,26 +447,24 @@ let namaFileSoal = `soal_tka_gabungan_${dataTersimpan.kelas}.js`;
       }
 
       // ✅ LOGIKA PEMANGGILAN FILE SOAL GABUNGAN
-let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
-// Cukup satu baris saja, karena filenya sudah gabungan
+      let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
       
       // Membuat tag script untuk memuat file soal yang sesuai
       const scriptSoal = document.createElement('script');
       scriptSoal.src = namaFileSoal; 
       
       scriptSoal.onload = () => {
-  // ⏱️ Tunggu sebentar sampai data benar-benar masuk ke window
-  setTimeout(() => {
-    if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
-      mulaiUjian();
-      tampilkanSoal(0); // ✅ PAKSA TAMPILKAN SOAL PERTAMA SETELAH BERHASIL MUAT
-      simpanDataKeStorage();
-    } else {
-      alert('File soal dimuat tetapi datanya kosong! Pastikan isi file ' + namaFileSoal + ' sudah benar.');
-      console.log('Isi window.daftarSoal:', window.daftarSoal);
-    }
-  }, 100); // Tunda 0,1 detik saja agar data siap
-};
+          // ⏱️ Tunggu sebentar sampai data benar-benar masuk ke window
+          setTimeout(() => {
+              if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
+                  mulaiUjian();
+                  tampilkanSoal(0); // ✅ PAKSA TAMPILKAN SOAL PERTAMA SETELAH BERHASIL MUAT
+                  simpanDataKeStorage();
+              } else {
+                  alert('File soal dimuat tetapi datanya kosong! Pastikan isi file ' + namaFileSoal + ' sudah benar.');
+              }
+          }, 100); // Tunda 0,1 detik saja agar data siap
+      };
       
       scriptSoal.onerror = () => {
         alert(`Gagal memuat file soal: ${namaFileSoal}.\n\nPastikan file tersebut ada di folder yang sama dengan halaman ini.`);
@@ -480,31 +481,31 @@ let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
     }
 
     // Membuat tombol navigasi kotak-kotak
-function buatNavigasiSoal() {
-  questionNav.innerHTML = '';
-  window.daftarSoal.forEach((soal, idx) => {
-    // JANGAN buat kotak navigasi untuk halaman INFO
-    if (soal.tipe === 'INFO') return; 
+    function buatNavigasiSoal() {
+      questionNav.innerHTML = '';
+      window.daftarSoal.forEach((soal, idx) => {
+        // JANGAN buat kotak navigasi untuk halaman INFO
+        if (soal.tipe === 'INFO') return; 
 
-    const navItem = document.createElement('div');
-    navItem.className = 'nav-item unanswered';
-    navItem.textContent = soal.id; // Ambil nomor dari ID, bukan urutan indeks
-    navItem.onclick = () => tampilkanSoal(idx);
-    questionNav.appendChild(navItem);
-  });
-} // ✅ KURUNG KURAWAL INI YANG DULU HILANG, SEKARANG SUDAH DITAMBAH
+        const navItem = document.createElement('div');
+        navItem.className = 'nav-item unanswered';
+        navItem.textContent = soal.id; // Ambil nomor dari ID, bukan urutan indeks
+        navItem.onclick = () => tampilkanSoal(idx);
+        questionNav.appendChild(navItem);
+      });
+    } 
 
-// Fungsi utama menampilkan soal
-function tampilkanSoal(idx) {
+    // Fungsi utama menampilkan soal
+    function tampilkanSoal(idx) {
       currentIndex = idx;
       const soal = window.daftarSoal[idx];
       
       // Update indikator halaman
       if (soal.tipe === 'INFO') {
-  pageIndicator.textContent = `INFORMASI`;
-} else {
-  pageIndicator.textContent = `Soal ${soal.id} dari ${window.daftarSoal.filter(s => s.tipe !== 'INFO').length}`;
-}
+          pageIndicator.textContent = `INFORMASI`;
+      } else {
+          pageIndicator.textContent = `Soal ${soal.id} dari ${window.daftarSoal.filter(s => s.tipe !== 'INFO').length}`;
+      }
       
       // Tandai navigasi aktif & sudah dijawab
       document.querySelectorAll('.nav-item').forEach((el, i) => {
@@ -518,7 +519,7 @@ function tampilkanSoal(idx) {
 
       let htmlSoal = `
         <div class="qno">
-          <span>Soal Nomor ${idx + 1}</span>
+          <span>Soal Nomor ${soal.id}</span>
           <span class="badge-type">${soal.tipe} | ${soal.tingkatKesulitan} (${soal.rentangNilai})</span>
         </div>
         <div class="question">${soal.soal}</div>
@@ -546,6 +547,10 @@ function tampilkanSoal(idx) {
         });
         htmlSoal += `</div>`;
       } 
+      else if(soal.tipe === 'INFO') {
+          // ✅ TIDAK tampilkan pilihan jawaban, hanya info
+          htmlSoal += `<div style="height: 50px;"></div>`; 
+      }
       else if(soal.tipe === 'PGK') {
         htmlSoal += `<div class="choices">`;
         soal.pilihan.forEach((pil, noPil) => {
@@ -579,9 +584,8 @@ function tampilkanSoal(idx) {
         nextBtn.onclick = () => tampilkanSoal(idx + 1);
       }
 
-            simpanDataKeStorage(); // Simpan setiap kali pindah soal
+      simpanDataKeStorage(); // Simpan setiap kali pindah soal
     }
-} // ✅ TUTUP FUNGSI tampilkanSoal DENGAN BENAR
 
     // Fungsi simpan jawaban PG
     function simpanJawaban(idx, jawaban) {
@@ -607,7 +611,8 @@ function tampilkanSoal(idx) {
       let benar = 0;
       let totalNilai = 0;
       window.daftarSoal.forEach((soal, idx) => {
-        if (soal.tipe === 'INFO') return; 
+        if (soal.tipe === 'INFO') return; // Lewati halaman info
+        
         const nilaiSoal = parseInt(soal.rentangNilai.split('–')[1]); // Ambil nilai maks
         if(soal.tipe === 'PG') {
           if(jawabanSiswa[idx] === soal.kunciJawaban) {
@@ -624,7 +629,10 @@ function tampilkanSoal(idx) {
           }
         }
       });
-      return {benar, totalNilai, maksNilai: window.daftarSoal.reduce((sum, s) => sum + parseInt(s.rentangNilai.split('–')[1]), 0)};
+      return {benar, totalNilai, maksNilai: window.daftarSoal.reduce((sum, s) => {
+          if(s.tipe === 'INFO') return sum; // Jangan hitung info
+          return sum + parseInt(s.rentangNilai.split('–')[1]);
+      }, 0)};
     }
 
     // Tampilan Hasil Akhir
@@ -640,7 +648,7 @@ function tampilkanSoal(idx) {
               <span>Benar</span>
             </div>
             <div class="result-item wrong">
-              <span class="result-val">${window.daftarSoal.length - hasil.benar}</span> 
+              <span class="result-val">${(window.daftarSoal.filter(s=>s.tipe!=='INFO').length) - hasil.benar}</span> 
               <span>Salah</span>
             </div>
           </div>
