@@ -360,6 +360,68 @@
         '9': 'tka9smp001'
     };
 
+    // ==============================================
+    // ✅ FITUR BARU: SIMPAN & PULIHKAN DATA SAAT REFRESH
+    // ==============================================
+    
+    // Fungsi simpan data ke Penyimpanan Lokal
+    function simpanDataKeStorage() {
+        const dataUjian = {
+            kelas: document.getElementById('kelas').value,
+            mapel: document.getElementById('mapel').value,
+            nama: document.getElementById('nama').value,
+            asal: document.getElementById('asal').value,
+            nomor: document.getElementById('nomor').value,
+            jawaban: jawabanSiswa,
+            halamanAktif: currentIndex
+        };
+        localStorage.setItem('dataUjianTKA', JSON.stringify(dataUjian));
+    }
+
+    // Fungsi ambil data dari Penyimpanan Lokal
+    function ambilDataDariStorage() {
+        const data = localStorage.getItem('dataUjianTKA');
+        return data ? JSON.parse(data) : null;
+    }
+
+    // Cek apakah pengguna sedang dalam ujian saat halaman dimuat
+    window.onload = () => {
+        const dataTersimpan = ambilDataDariStorage();
+        if (dataTersimpan) {
+            // Isi kembali formulir dengan data sebelumnya
+            document.getElementById('kelas').value = dataTersimpan.kelas;
+            document.getElementById('mapel').value = dataTersimpan.mapel;
+            document.getElementById('nama').value = dataTersimpan.nama;
+            document.getElementById('asal').value = dataTersimpan.asal;
+            document.getElementById('nomor').value = dataTersimpan.nomor;
+            jawabanSiswa = dataTersimpan.jawaban || {};
+            
+            // Panggil ulang soal dan lanjutkan ujian
+            let namaFileSoal = "";
+            if (dataTersimpan.mapel === 'TKA Numerasi (Matematika)') {
+                namaFileSoal = `soal_tka_num_${dataTersimpan.kelas}.js`;
+            } else if (dataTersimpan.mapel === 'TKA Literasi (B. Indonesia)') {
+                namaFileSoal = `soal_tka_lit_${dataTersimpan.kelas}.js`;
+            }
+
+            const scriptSoal = document.createElement('script');
+            scriptSoal.src = namaFileSoal; 
+            scriptSoal.onload = () => {
+                if (window.daftarSoal) {
+                    mulaiUjian();
+                    tampilkanSoal(dataTersimpan.halamanAktif || 0); // Buka di halaman terakhir
+                }
+            };
+            document.body.appendChild(scriptSoal);
+        }
+    };
+
+    // Simpan data setiap kali ada perubahan jawaban atau pindah halaman
+    window.addEventListener('beforeunload', simpanDataKeStorage);
+
+    // ==============================================
+    // ✅ LOGIKA AWAL MULAI UJIAN
+    // ==============================================
     startBtn.addEventListener('click', () => {
       const kelas = document.getElementById('kelas').value;
       const mapel = document.getElementById('mapel').value;
@@ -371,14 +433,13 @@
           return;
       }
 
-      // ✅ LOGIKA NOMOR 2: VALIDASI PASSWORD BERDASARKAN KELAS
+      // ✅ LOGIKA PASSWORD BERDASARKAN KELAS
       if(passwordInput !== daftarPassword[kelas]) {
           alert(`Password salah untuk Kelas ${kelas}!\n\nPassword yang benar: ${daftarPassword[kelas]}`);
           return; // Hentikan proses jika password salah
       }
 
-      // ✅ LOGIKA NOMOR 1: PEMANGGILAN FILE SOAL DINAMIS
-      // Ubah nama file sesuai pilihan user
+      // ✅ LOGIKA PEMANGGILAN FILE SOAL DINAMIS
       let namaFileSoal = "";
       if (mapel === 'TKA Numerasi (Matematika)') {
           namaFileSoal = `soal_tka_num_${kelas}.js`;
@@ -393,6 +454,7 @@
       scriptSoal.onload = () => {
         if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
           mulaiUjian();
+          simpanDataKeStorage(); // Simpan status awal ujian dimulai
         } else {
           alert('File soal dimuat tetapi datanya kosong! Pastikan isi file ' + namaFileSoal + ' sudah benar.');
           console.log('Isi window.daftarSoal:', window.daftarSoal);
@@ -411,7 +473,6 @@
       quizArea.style.display = 'block';
       controls.style.display = 'flex';
       buatNavigasiSoal();
-      tampilkanSoal(0);
     }
 
     // Membuat tombol navigasi kotak-kotak
@@ -434,11 +495,14 @@
       // Update indikator halaman
       pageIndicator.textContent = `Soal ${idx + 1} dari ${window.daftarSoal.length}`;
       
-      // Tandai navigasi aktif
+      // Tandai navigasi aktif & sudah dijawab
       document.querySelectorAll('.nav-item').forEach((el, i) => {
         el.classList.remove('active');
         if(i === idx) el.classList.add('active');
-        if(jawabanSiswa[i] !== undefined) el.classList.add('answered');
+        if(jawabanSiswa[i] !== undefined) {
+            el.classList.remove('unanswered');
+            el.classList.add('answered');
+        }
       });
 
       let htmlSoal = `
@@ -503,6 +567,8 @@
         nextBtn.textContent = 'Selanjutnya';
         nextBtn.onclick = () => tampilkanSoal(idx + 1);
       }
+
+      simpanDataKeStorage(); // Simpan setiap kali pindah soal
     }
 
     // Fungsi simpan jawaban PG
@@ -510,6 +576,7 @@
       jawabanSiswa[idx] = jawaban;
       document.querySelectorAll('.nav-item')[idx].classList.remove('unanswered');
       document.querySelectorAll('.nav-item')[idx].classList.add('answered');
+      simpanDataKeStorage(); // Simpan setiap kali jawaban berubah
     }
 
     // Fungsi simpan jawaban PGK (Banyak jawaban benar)
@@ -520,6 +587,7 @@
       if(jawabanSiswa[idx].length > 0) {
         document.querySelectorAll('.nav-item')[idx].classList.add('answered');
       }
+      simpanDataKeStorage(); // Simpan setiap kali jawaban berubah
     }
 
     // Menghitung Skor
@@ -567,6 +635,9 @@
       `;
       controls.style.display = 'none';
       questionNav.style.display = 'none';
+      
+      // ✅ Hapus data penyimpanan setelah ujian selesai
+      localStorage.removeItem('dataUjianTKA'); 
     }
 
     // Navigasi Tombol
