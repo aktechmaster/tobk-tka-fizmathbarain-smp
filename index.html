@@ -461,14 +461,18 @@
       scriptSoal.src = namaFileSoal; 
       
       scriptSoal.onload = () => {
-        if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
-          mulaiUjian();
-          simpanDataKeStorage(); // Simpan status awal ujian dimulai
-        } else {
-          alert('File soal dimuat tetapi datanya kosong! Pastikan isi file ' + namaFileSoal + ' sudah benar.');
-          console.log('Isi window.daftarSoal:', window.daftarSoal);
-        }
-      };
+  // ⏱️ Tunggu sebentar sampai data benar-benar masuk ke window
+  setTimeout(() => {
+    if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
+      mulaiUjian();
+      tampilkanSoal(0); // ✅ PAKSA TAMPILKAN SOAL PERTAMA SETELAH BERHASIL MUAT
+      simpanDataKeStorage();
+    } else {
+      alert('File soal dimuat tetapi datanya kosong! Pastikan isi file ' + namaFileSoal + ' sudah benar.');
+      console.log('Isi window.daftarSoal:', window.daftarSoal);
+    }
+  }, 100); // Tunda 0,1 detik saja agar data siap
+};
       
       scriptSoal.onerror = () => {
         alert(`Gagal memuat file soal: ${namaFileSoal}.\n\nPastikan file tersebut ada di folder yang sama dengan halaman ini.`);
