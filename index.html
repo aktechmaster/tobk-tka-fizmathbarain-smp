@@ -386,6 +386,15 @@
 
     // Cek apakah pengguna sedang dalam ujian saat halaman dimuat
     window.onload = () => {
+        // ✅ Cek kalau ujian SUDAH SELESAI, langsung ke halaman login
+    if (sessionStorage.getItem('ujianSelesai') === 'true') {
+        sessionStorage.removeItem('ujianSelesai'); // Bersihkan tanda
+        startScreen.style.display = 'block';
+        quizArea.style.display = 'none';
+        controls.style.display = 'none';
+        questionNav.style.display = 'none';
+        return; // Berhenti di sini, jangan muat soal
+    }
         const dataTersimpan = ambilDataDariStorage();
         if (dataTersimpan) {
             // Isi kembali formulir dengan data sebelumnya
@@ -638,6 +647,7 @@
       
       // ✅ Hapus data penyimpanan setelah ujian selesai
       localStorage.removeItem('dataUjianTKA'); 
+      sessionStorage.setItem('ujianSelesai', 'true');
     }
 
     // Navigasi Tombol
