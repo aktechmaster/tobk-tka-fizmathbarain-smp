@@ -480,21 +480,22 @@ let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
     }
 
     // Membuat tombol navigasi kotak-kotak
-    function buatNavigasiSoal() {
-      questionNav.innerHTML = '';
-      window.daftarSoal.forEach((soal, idx) => {
-  // JANGAN buat kotak navigasi untuk halaman INFO
-  if (soal.tipe === 'INFO') return; 
+function buatNavigasiSoal() {
+  questionNav.innerHTML = '';
+  window.daftarSoal.forEach((soal, idx) => {
+    // JANGAN buat kotak navigasi untuk halaman INFO
+    if (soal.tipe === 'INFO') return; 
 
-  const navItem = document.createElement('div');
-  navItem.className = 'nav-item unanswered';
-  navItem.textContent = soal.id; // Ambil nomor dari ID, bukan urutan indeks
-  navItem.onclick = () => tampilkanSoal(idx);
-  questionNav.appendChild(navItem);
-});
+    const navItem = document.createElement('div');
+    navItem.className = 'nav-item unanswered';
+    navItem.textContent = soal.id; // Ambil nomor dari ID, bukan urutan indeks
+    navItem.onclick = () => tampilkanSoal(idx);
+    questionNav.appendChild(navItem);
+  });
+} // ✅ KURUNG KURAWAL INI YANG DULU HILANG, SEKARANG SUDAH DITAMBAH
 
-    // Fungsi utama menampilkan soal
-    function tampilkanSoal(idx) {
+// Fungsi utama menampilkan soal
+function tampilkanSoal(idx) {
       currentIndex = idx;
       const soal = window.daftarSoal[idx];
       
@@ -578,8 +579,9 @@ let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
         nextBtn.onclick = () => tampilkanSoal(idx + 1);
       }
 
-      simpanDataKeStorage(); // Simpan setiap kali pindah soal
+            simpanDataKeStorage(); // Simpan setiap kali pindah soal
     }
+} // ✅ TUTUP FUNGSI tampilkanSoal DENGAN BENAR
 
     // Fungsi simpan jawaban PG
     function simpanJawaban(idx, jawaban) {
