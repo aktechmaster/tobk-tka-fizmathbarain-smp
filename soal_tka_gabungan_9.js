@@ -1,7 +1,96 @@
-// Bank Soal TKA Numerikal Kelas 9
+// ==================================================
+// BANK SOAL TKA GABUNGAN: LITERASI & NUMERASI KELAS 9
+// ==================================================
 window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
+
+  // ==============================================
+  // ✅ BAGIAN 1: TKA LITERASI (B. INDONESIA)
+  // ==============================================
   {
     id: 1,
+    tipe: "PG",
+    tingkatKesulitan: "Sangat Mudah",
+    rentangNilai: "4 – 5",
+    soal: `[ISI SOAL LITERASI NOMOR 1 DI SINI]<br><br>
+    Contoh: Bacalah teks berikut dengan cermat! Berdasarkan isi teks tersebut, apa gagasan utama paragraf kedua?`,
+    gambar: null,
+    pilihan: [
+      "A. [Pilihan A]",
+      "B. [Pilihan B]",
+      "C. [Pilihan C]",
+      "D. [Pilihan D]"
+    ],
+    kunciJawaban: "A"
+  },
+  {
+    id: 2,
+    tipe: "PGK",
+    tingkatKesulitan: "Sedang",
+    rentangNilai: "8 – 10",
+    soal: `[ISI SOAL LITERASI NOMOR 2 DI SINI]<br><br>
+    <strong>Pilih semua jawaban benar!</strong>`,
+    gambar: null,
+    pilihan: [
+      "[Pilihan 1]",
+      "[Pilihan 2]",
+      "[Pilihan 3]",
+      "[Pilihan 4]"
+    ],
+    kunciJawaban: [0, 1]
+  },
+  {
+    id: 3,
+    tipe: "PGK",
+    tingkatKesulitan: "Lumayan Sulit",
+    rentangNilai: "11 – 13",
+    soal: `[ISI SOAL LITERASI NOMOR 3 DI SINI]<br><br>
+    <strong>Pilih semua jawaban benar!</strong>`,
+    gambar: null,
+    pilihan: [
+      "[Pilihan 1]",
+      "[Pilihan 2]",
+      "[Pilihan 3]",
+      "[Pilihan 4]"
+    ],
+    kunciJawaban: [1, 3]
+  },
+  {
+    id: 4,
+    tipe: "PG",
+    tingkatKesulitan: "Mudah",
+    rentangNilai: "6 – 7",
+    soal: `[ISI SOAL LITERASI NOMOR 4 DI SINI]`,
+    gambar: null,
+    pilihan: [
+      "A. [Pilihan A]",
+      "B. [Pilihan B]",
+      "C. [Pilihan C]",
+      "D. [Pilihan D]"
+    ],
+    kunciJawaban: "C"
+  },
+  {
+    id: 5,
+    tipe: "PG",
+    tingkatKesulitan: "Mudah",
+    rentangNilai: "6 – 7",
+    soal: `[ISI SOAL LITERASI NOMOR 5 DI SINI]`,
+    gambar: null,
+    pilihan: [
+      "A. [Pilihan A]",
+      "B. [Pilihan B]",
+      "C. [Pilihan C]",
+      "D. [Pilihan D]"
+    ],
+    kunciJawaban: "B"
+  },
+
+  // ==============================================
+  // ✅ BAGIAN 2: TKA NUMERASI (MATEMATIKA)
+  // (Ini bagian asli kamu, saya taruh di bawah bagian Literasi)
+  // ==============================================
+  {
+    id: 6, // ⚠️ ID saya lanjutkan urut dari atas (karena jadi satu rangkaian)
     tipe: "PG",
     tingkatKesulitan: "Sangat Mudah",
     rentangNilai: "4 – 5",
@@ -18,7 +107,7 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: "A"
   },
   {
-    id: 2,
+    id: 7,
     tipe: "PGK",
     tingkatKesulitan: "Sedang",
     rentangNilai: "8 – 10",
@@ -34,7 +123,7 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: [0, 1, 2]
   },
   {
-    id: 3,
+    id: 8,
     tipe: "PGK",
     tingkatKesulitan: "Lumayan Sulit",
     rentangNilai: "11 – 13",
@@ -51,7 +140,7 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: [2, 3]
   },
   {
-    id: 4,
+    id: 9,
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -67,7 +156,7 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: "B"
   },
   {
-    id: 5,
+    id: 10,
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
