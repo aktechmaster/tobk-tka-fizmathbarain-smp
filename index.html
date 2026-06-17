@@ -268,12 +268,12 @@
       </div>
 
       <div class="input-group">
-        <label for="mapel">Mata Pelajaran</label>
-        <select id="mapel">
-            <option value="TKA Numerasi (Matematika)">TKA Numerasi (Matematika)</option>
-            <option value="TKA Literasi (B. Indonesia)">TKA Literasi (B. Indonesia)</option>
-        </select>
-      </div>
+  <label>Mata Pelajaran</label>
+  <input type="text" value="TKA Numeric & Literasi" readonly style="background:#eef6ff; color:#0b4f7a; font-weight:bold; border-color:#1f8dd6;">
+  <!-- Input di atas hanya tampilan, tidak bisa diubah -->
+  <input type="hidden" id="mapel" value="TKA Gabungan">
+  <!-- ^ Ini yang dibaca sistem, nilainya tetap "TKA Gabungan" -->
+</div>
 
       <div class="input-group">
         <label for="asal">Asal Sekolah / Instansi</label>
@@ -406,12 +406,7 @@
             jawabanSiswa = dataTersimpan.jawaban || {};
             
             // Panggil ulang soal dan lanjutkan ujian
-            let namaFileSoal = "";
-            if (dataTersimpan.mapel === 'TKA Numerasi (Matematika)') {
-                namaFileSoal = `soal_tka_num_${dataTersimpan.kelas}.js`;
-            } else if (dataTersimpan.mapel === 'TKA Literasi (B. Indonesia)') {
-                namaFileSoal = `soal_tka_lit_${dataTersimpan.kelas}.js`;
-            }
+let namaFileSoal = `soal_tka_gabungan_${dataTersimpan.kelas}.js`;
 
             const scriptSoal = document.createElement('script');
             scriptSoal.src = namaFileSoal; 
@@ -448,14 +443,10 @@
           return; // Hentikan proses jika password salah
       }
 
-      // ✅ LOGIKA PEMANGGILAN FILE SOAL DINAMIS
-      let namaFileSoal = "";
-      if (mapel === 'TKA Numerasi (Matematika)') {
-          namaFileSoal = `soal_tka_num_${kelas}.js`;
-      } else if (mapel === 'TKA Literasi (B. Indonesia)') {
-          namaFileSoal = `soal_tka_lit_${kelas}.js`;
-      }
-
+      // ✅ LOGIKA PEMANGGILAN FILE SOAL GABUNGAN
+let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
+// Cukup satu baris saja, karena filenya sudah gabungan
+      
       // Membuat tag script untuk memuat file soal yang sesuai
       const scriptSoal = document.createElement('script');
       scriptSoal.src = namaFileSoal; 
