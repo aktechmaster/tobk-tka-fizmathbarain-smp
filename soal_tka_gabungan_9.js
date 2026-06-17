@@ -86,11 +86,33 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
   },
 
   // ==============================================
-  // ✅ BAGIAN 2: TKA NUMERASI (MATEMATIKA)
-  // (Ini bagian asli kamu, saya taruh di bawah bagian Literasi)
+  // ⚠️ HALAMAN PEMISAH / PEMBERITAHUAN
   // ==============================================
   {
-    id: 6, // ⚠️ ID saya lanjutkan urut dari atas (karena jadi satu rangkaian)
+    id: 6,
+    tipe: "INFO", // Tipe khusus, nanti tidak dihitung skornya
+    tingkatKesulitan: "-",
+    rentangNilai: "0 – 0",
+    soal: `
+    <div style="text-align:center; padding:30px 20px; background-color:#fff9c4; border:2px solid #fbc02d; border-radius:12px; color:#856404;">
+      <h2 style="margin:0 0 15px 0; font-size:22px; font-weight:900;">📢 PERHATIAN</h2>
+      <p style="font-size:17px; line-height:1.6; margin:0;">
+        Anda telah menyelesaikan bagian <strong>TKA LITERASI</strong>.<br><br>
+        Selanjutnya Anda akan mengerjakan soal bagian <strong>TKA NUMERASI (MATEMATIKA)</strong>.<br>
+        Silakan tekan tombol <strong>SELANJUTNYA</strong> di bawah ini untuk melanjutkan ujian.
+      </p>
+    </div>
+    `,
+    gambar: null,
+    pilihan: [], // Kosong, tidak ada pilihan jawaban
+    kunciJawaban: "" // Kosong, tidak ada kunci
+  },
+
+  // ==============================================
+  // ✅ BAGIAN 2: TKA NUMERASI (MATEMATIKA)
+  // ==============================================
+  {
+    id: 7, // ID lanjut setelah halaman info
     tipe: "PG",
     tingkatKesulitan: "Sangat Mudah",
     rentangNilai: "4 – 5",
@@ -107,7 +129,7 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: "A"
   },
   {
-    id: 7,
+    id: 8,
     tipe: "PGK",
     tingkatKesulitan: "Sedang",
     rentangNilai: "8 – 10",
@@ -123,7 +145,7 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: [0, 1, 2]
   },
   {
-    id: 8,
+    id: 9,
     tipe: "PGK",
     tingkatKesulitan: "Lumayan Sulit",
     rentangNilai: "11 – 13",
@@ -140,7 +162,7 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: [2, 3]
   },
   {
-    id: 9,
+    id: 10,
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -156,7 +178,7 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: "B"
   },
   {
-    id: 10,
+    id: 11,
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -172,8 +194,3 @@ window.daftarSoal = [ // Langsung masukkan ke window, TIDAK pakai const/let/var
     kunciJawaban: "B"
   }
 ];
-
-// HAPUS baris ini karena sudah langsung masuk ke window di atas
-// if (typeof window !== 'undefined') {
-//     window.daftarSoal = daftarSoal;
-// }
