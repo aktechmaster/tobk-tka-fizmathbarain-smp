@@ -370,41 +370,54 @@ function bersihkanDataUjian() {
     sessionStorage.removeItem('ujianSelesai');
 }
 
-// Fungsi simpan data ke Penyimpanan Lokal (DIPERBAIKI: ada tanda sah)
+// Fungsi simpan data ke Penyimpanan Lokal (HANYA jika sudah terverifikasi)
 function simpanDataKeStorage() {
+    // Cek dulu: Apakah ujian sudah berjalan & terverifikasi?
+    const dataLama = ambilDataDariStorage();
+    
+    // ✅ HANYA simpan ulang jika data sebelumnya sudah ada tanda terverifikasi
+    if (dataLama && dataLama.terverifikasi === true) {
     const dataUjian = {
-        statusUjian: "sedang-berjalan", // ✅ TANDA KHUSUS: Hanya dianggap sah jika ada ini
-        kelas: document.getElementById('kelas').value,
-        mapel: document.getElementById('mapel').value,
-        nama: document.getElementById('nama').value,
-        asal: document.getElementById('asal').value,
-        nomor: document.getElementById('nomor').value,
-        jawaban: jawabanSiswa,
-        halamanAktif: currentIndex
-    };
-    localStorage.setItem('dataUjianTKA', JSON.stringify(dataUjian));
+            statusUjian: "sedang-berjalan",
+            terverifikasi: true,
+            kelas: dataLama.kelas,
+            mapel: dataLama.mapel,
+            nama: dataLama.nama,
+            asal: dataLama.asal,
+            nomor: dataLama.nomor,
+            jawaban: jawabanSiswa,
+            halamanAktif: currentIndex,
+            jumlahPelanggaran: window.violationCount || 0,
+            sisaWaktuHukuman: window.sisaWaktuHukuman || 0,
+            waktuHukumanMulai: window.waktuHukumanMulai || 0,
+            waktuMulaiUjian: window.waktuMulaiUjian || 0, // ✅ SIMPAN KAPAN UJIAN DIMULAI (PENTING!)
+            durasiTotal: window.durasiTotal || 3600 // ✅ Durasi standar 60 menit (3600 detik)
+        };
+        localStorage.setItem('dataUjianTKA', JSON.stringify(dataUjian));
+    }
+    // ✅ JIKA BELUM TERVERIFIKASI: TIDAK MENYIMPAN APA-APA, data kosong
 }
 
-// Fungsi ambil data dari Penyimpanan Lokal (DIPERBAIKI: cek status sah)
+// Fungsi ambil data dari Penyimpanan Lokal
 function ambilDataDariStorage() {
     const data = localStorage.getItem('dataUjianTKA');
     if (!data) return null;
     const parsed = JSON.parse(data);
-    // ✅ HANYA ambil data jika statusnya benar-benar ujian sedang berjalan
-    return parsed.statusUjian === "sedang-berjalan" ? parsed : null;
+    // ✅ SYARAT BARU: Harus ada status berjalan DAN sudah terverifikasi password
+    return (parsed.statusUjian === "sedang-berjalan" && parsed.terverifikasi === true) ? parsed : null;
 }
 
 // Cek apakah pengguna sedang dalam ujian saat halaman dimuat
 window.onload = () => {
-    // ✅ Cek kalau ujian SUDAH SELESAI, langsung ke halaman login & bersihkan data
-    if (sessionStorage.getItem('ujianSelesai') === 'true') {
-        bersihkanDataUjian(); // ✅ Hapus jejak lama
-        startScreen.style.display = 'block';
-        quizArea.style.display = 'none';
-        controls.style.display = 'none';
-        questionNav.style.display = 'none';
-        return;
-    }
+    // ✅ Cek kalau ujian SUDAH SELESAI ATAU DATA TIDAK SAH, langsung bersihkan & ke login
+if (sessionStorage.getItem('ujianSelesai') === 'true' || !ambilDataDariStorage()) {
+    bersihkanDataUjian(); // ✅ Hapus jejak lama / data tidak sah
+    startScreen.style.display = 'block';
+    quizArea.style.display = 'none';
+    controls.style.display = 'none';
+    questionNav.style.display = 'none';
+    return;
+}
     
     const dataTersimpan = ambilDataDariStorage();
     if (dataTersimpan) {
@@ -415,21 +428,91 @@ window.onload = () => {
         document.getElementById('asal').value = dataTersimpan.asal;
         document.getElementById('nomor').value = dataTersimpan.nomor;
         jawabanSiswa = dataTersimpan.jawaban || {};
-        
-        // Panggil ulang soal dan lanjutkan ujian
-        let namaFileSoal = `soal_tka_gabungan_${dataTersimpan.kelas}.js`;
+              // ✅ PULIHKAN JUMLAH PELANGGARAN YANG TERSIMPAN
+        window.violationCount = dataTersimpan.jumlahPelanggaran || 0;
+        document.getElementById('violationCount').textContent = window.violationCount;
+      simpanDataKeStorage(); // ✅ LANGSUNG SIMPAN SETIAP KALI NILAI BERUBAH
+              // ✅ PULIHKAN STATUS HUKUMAN JIKA SEDANG BERJALAN
+        if (dataTersimpan.sisaWaktuHukuman > 0 && dataTersimpan.waktuHukumanMulai > 0) {
+            const berlalunyaWaktu = Math.floor((Date.now() - dataTersimpan.waktuHukumanMulai) / 1000);
+            const sisa = dataTersimpan.sisaWaktuHukuman - berlalunyaWaktu;
+            
+            if (sisa > 0) {
+                // Masih ada sisa waktu, langsung kunci layar lagi
+                window.sisaWaktuHukuman = sisa;
+                document.getElementById('layar-penalti').classList.remove('hidden');
+                document.getElementById('timer-penalti').textContent = sisa;
+                // Mulai hitung mundur ulang
+                if (window.hukumanInterval) clearInterval(window.hukumanInterval);
+                window.hukumanInterval = setInterval(() => {
+                    window.sisaWaktuHukuman--;
+                    document.getElementById('timer-penalti').textContent = window.sisaWaktuHukuman;
+                    if (window.sisaWaktuHukuman <= 0) {
+                        clearInterval(window.hukumanInterval);
+                        document.getElementById('layar-penalti').classList.add('hidden');
+                    }
+                    simpanDataKeStorage(); // Simpan setiap detik
+                }, 1000);
+            }
+        }
 
-        const scriptSoal = document.createElement('script');
-        scriptSoal.src = namaFileSoal; 
-        scriptSoal.onload = () => {
-            setTimeout(() => {
-                if (window.daftarSoal) {
-                    mulaiUjian();
-                    buatNavigasiSoal(); // ✅ Kotak navigasi muncul saat refresh
-                    tampilkanSoal(dataTersimpan.halamanAktif || 0);
-                }
-            }, 100);
-        };
+      if (dataTersimpan.waktuMulaiUjian > 0) {
+            const detikTerlewat = Math.floor((Date.now() - dataTersimpan.waktuMulaiUjian) / 1000);
+            let sisaWaktu = dataTersimpan.durasiTotal - detikTerlewat;
+            
+            if (sisaWaktu <= 0) {
+                sisaWaktu = 0;
+                tampilkanHasil();
+            }
+            
+            const menit = Math.floor(sisaWaktu / 60);
+            const detik = sisaWaktu % 60;
+            document.getElementById('timerText').textContent = `${menit.toString().padStart(2, '0')}:${detik.toString().padStart(2, '0')}`;
+            
+            window.waktuMulaiUjian = dataTersimpan.waktuMulaiUjian;
+            window.durasiTotal = dataTersimpan.durasiTotal;
+        }
+          // ✅ KUNCI FORMULIR: Tidak bisa diubah lagi karena ujian sudah berjalan
+    document.getElementById('kelas').disabled = true;
+    document.getElementById('nama').disabled = true;
+    document.getElementById('asal').disabled = true;
+    document.getElementById('nomor').disabled = true;
+    document.getElementById('password').disabled = true;
+    startBtn.disabled = true; // Tombol mulai juga dikunci
+        
+        // ✅ HANYA JIKA PASSWORD BENAR, BARU PROSES BERJALAN
+let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
+const scriptSoal = document.createElement('script');
+scriptSoal.src = namaFileSoal; 
+
+scriptSoal.onload = () => {
+    setTimeout(() => {
+        if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
+            // ✅ TAMBAHKAN TANDA SAH SECARA LANGSUNG DI SINI
+            const dataSementara = {
+                statusUjian: "sedang-berjalan",
+                terverifikasi: true, // <-- Tanda ini baru dibuat di sini, setelah lolos cek password
+                kelas: kelas,
+                mapel: mapel,
+                nama: document.getElementById('nama').value,
+                asal: document.getElementById('asal').value,
+                nomor: document.getElementById('nomor').value,
+                jawaban: jawabanSiswa,
+                halamanAktif: 0
+            };
+                waktuMulaiUjian: Date.now(), // ✅ CATAT WAKTU PERSIS SAAT TOMBOL MULAI DITEKAN
+                durasiTotal: 3600 // ✅ 60 menit = 3600 detik
+            // Simpan data yang sudah sah ini ke penyimpanan
+            localStorage.setItem('dataUjianTKA', JSON.stringify(dataSementara));
+            
+            mulaiUjian();
+            buatNavigasiSoal();
+            tampilkanSoal(0);
+        } else {
+            alert('File soal dimuat tetapi datanya kosong! Pastikan isi file ' + namaFileSoal + ' sudah benar.');
+        }
+    }, 100);
+};
         document.body.appendChild(scriptSoal);
     } else {
         // ✅ JIKA TIDAK ADA DATA SAH: Paksa tampilkan halaman login
@@ -439,9 +522,6 @@ window.onload = () => {
         questionNav.style.display = 'none';
     }
 };
-
-    // Simpan data setiap kali ada perubahan jawaban atau pindah halaman
-    window.addEventListener('beforeunload', simpanDataKeStorage);
 
     // ==============================================
     // ✅ LOGIKA AWAL MULAI UJIAN
@@ -457,10 +537,11 @@ window.onload = () => {
       return;
   }
 
-  // ✅ LANGKAH PENTING: CEK PASSWORD DULU BARU LANJUT
+    // ✅ LANGKAH PENTING: CEK PASSWORD DULU BARU LANJUT
   if(passwordInput !== daftarPassword[kelas]) {
       alert(`Password salah untuk Kelas ${kelas}!\n\nPassword yang benar: ${daftarPassword[kelas]}`);
-      return; // KELUAR JIKA PASSWORD SALAH, DATA TIDAK DISIMPAN
+      bersihkanDataUjian(); // ✅ HAPUS SEMUA DATA JIKA PASSWORD SALAH
+      return; 
   }
 
   // ✅ HANYA JIKA PASSWORD BENAR, BARU PROSES BERJALAN
@@ -481,8 +562,9 @@ window.onload = () => {
       }, 100);
   };
   
-  scriptSoal.onerror = () => {
+    scriptSoal.onerror = () => {
     alert(`Gagal memuat file soal: ${namaFileSoal}.\n\nPastikan file tersebut ada di folder yang sama dengan halaman ini.`);
+    bersihkanDataUjian(); // ✅ HAPUS DATA JIKA FILE SOAL RUSAK/TIDAK ADA
   };
   
   document.body.appendChild(scriptSoal);
