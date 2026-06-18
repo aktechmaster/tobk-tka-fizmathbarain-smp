@@ -484,14 +484,13 @@
 function buatNavigasiSoal() {
   questionNav.innerHTML = '';
   window.daftarSoal.forEach((soal) => {
-    // ❌ JANGAN buat kotak untuk tipe INFO
-    if (soal.tipe === 'INFO') return;
+    // ❌ Sembunyikan INFO & ID 99
+    if (soal.tipe === 'INFO' || soal.id === 99) return;
 
     const navItem = document.createElement('div');
     navItem.className = 'nav-item unanswered';
-    navItem.textContent = soal.id; // ✅ Ambil ANGKA LANGSUNG dari ID soal (1,2,3...6,7,8...)
+    navItem.textContent = soal.id; // Ambil angka asli
     navItem.onclick = () => {
-      // Cari posisi asli soal ini di daftar (lewati INFO)
       const posisi = window.daftarSoal.findIndex(s => s.id === soal.id);
       tampilkanSoal(posisi);
     };
@@ -499,47 +498,48 @@ function buatNavigasiSoal() {
   });
 }
 
-// Fungsi utama menampilkan soal
+// Fungsi tampilkan soal
 function tampilkanSoal(idx) {
   currentIndex = idx;
   const soal = window.daftarSoal[idx];
 
-  // ✅ TAMPILKAN NOMOR YANG BENAR: Pakai soal.id, BUKAN idx+1
+  // ✅ Tampilkan Judul
   if (soal.tipe === 'INFO') {
     pageIndicator.textContent = `INFORMASI`;
+    document.querySelector('.qno').innerHTML = `
+      <span>INFORMASI</span>
+      <span class="badge-type">INFO | - (0 - 0)</span>
+    `;
   } else {
-    pageIndicator.textContent = `Soal ${soal.id} dari ${window.daftarSoal.filter(s => s.tipe !== 'INFO').length}`;
+    pageIndicator.textContent = `Soal ${soal.id} dari ${window.daftarSoal.filter(s => s.tipe !== 'INFO' && s.id !== 99).length}`;
+    document.querySelector('.qno').innerHTML = `
+      <span>Soal Nomor ${soal.id}</span>
+      <span class="badge-type">${soal.tipe} | ${soal.tingkatKesulitan} (${soal.rentangNilai})</span>
+    `;
   }
 
-  // ✅ PERBAIKAN UTAMA: Tandai kotak aktif yang ANGKAnya SAMA dengan soal.id
+  // ✅ TANDAI WARNA KOTAK
   document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.remove('active');
-    // Kalau tulisan di kotak = nomor soal sekarang, tandai aktif
-    if (el.textContent == soal.id) {
-      el.classList.add('active');
-    }
-    // Tandai sudah dijawab
-    if (jawabanSiswa[idx] !== undefined) {
+    el.classList.remove('active', 'answered', 'unanswered');
+    el.classList.add('unanswered');
+
+    // Cari posisi asli soal berdasarkan ID
+    const posisiAsli = window.daftarSoal.findIndex(s => s.id == el.textContent);
+    
+    if (posisiAsli === idx) el.classList.add('active');
+    if (posisiAsli !== -1 && jawabanSiswa[posisiAsli] !== undefined) {
       el.classList.remove('unanswered');
       el.classList.add('answered');
     }
   });
 
-  let htmlSoal = `
-    <div class="qno">
-      <span>Soal Nomor ${soal.id}</span> <!-- ✅ PAKAI ID, BUKAN idx+1 -->
-      <span class="badge-type">${soal.tipe} | ${soal.tingkatKesulitan} (${soal.rentangNilai})</span>
-    </div>
-    <div class="question">${soal.soal}</div>
-  `;
+  // --- SISA KODE TETAP SAMA ---
+  let htmlSoal = `<div class="question">${soal.soal}</div>`;
 
-  // --- SISA KODE DI BAWAH INI TETAP SAMA SEPERTI YANG ADA ---
-  // Tampilkan Gambar jika ada
   if(soal.gambar) {
     htmlSoal += `<img src="${soal.gambar}" alt="Gambar Soal" style="max-width:100%; border-radius:8px; margin: 8px 0;">`;
   }
 
-  // Render berdasarkan Tipe Soal
   if(soal.tipe === 'PG') {
     htmlSoal += `<div class="choices">`;
     soal.pilihan.forEach((pil, noPil) => {
