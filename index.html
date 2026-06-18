@@ -364,31 +364,41 @@
     // ✅ FITUR BARU: SIMPAN & PULIHKAN DATA SAAT REFRESH
     // ==============================================
     
-    // Fungsi simpan data ke Penyimpanan Lokal
-    function simpanDataKeStorage() {
-        const dataUjian = {
-            kelas: document.getElementById('kelas').value,
-            mapel: document.getElementById('mapel').value,
-            nama: document.getElementById('nama').value,
-            asal: document.getElementById('asal').value,
-            nomor: document.getElementById('nomor').value,
-            jawaban: jawabanSiswa,
-            halamanAktif: currentIndex
-        };
-        localStorage.setItem('dataUjianTKA', JSON.stringify(dataUjian));
-    }
+    // ✅ FUNGSI BARU: Hapus semua data jika batal atau selesai
+function bersihkanDataUjian() {
+    localStorage.removeItem('dataUjianTKA');
+    sessionStorage.removeItem('ujianSelesai');
+}
 
-    // Fungsi ambil data dari Penyimpanan Lokal
-    function ambilDataDariStorage() {
-        const data = localStorage.getItem('dataUjianTKA');
-        return data ? JSON.parse(data) : null;
-    }
+// Fungsi simpan data ke Penyimpanan Lokal (DIPERBAIKI: ada tanda sah)
+function simpanDataKeStorage() {
+    const dataUjian = {
+        statusUjian: "sedang-berjalan", // ✅ TANDA KHUSUS: Hanya dianggap sah jika ada ini
+        kelas: document.getElementById('kelas').value,
+        mapel: document.getElementById('mapel').value,
+        nama: document.getElementById('nama').value,
+        asal: document.getElementById('asal').value,
+        nomor: document.getElementById('nomor').value,
+        jawaban: jawabanSiswa,
+        halamanAktif: currentIndex
+    };
+    localStorage.setItem('dataUjianTKA', JSON.stringify(dataUjian));
+}
 
-    // Cek apakah pengguna sedang dalam ujian saat halaman dimuat
+// Fungsi ambil data dari Penyimpanan Lokal (DIPERBAIKI: cek status sah)
+function ambilDataDariStorage() {
+    const data = localStorage.getItem('dataUjianTKA');
+    if (!data) return null;
+    const parsed = JSON.parse(data);
+    // ✅ HANYA ambil data jika statusnya benar-benar ujian sedang berjalan
+    return parsed.statusUjian === "sedang-berjalan" ? parsed : null;
+}
+
+// Cek apakah pengguna sedang dalam ujian saat halaman dimuat
 window.onload = () => {
-    // ✅ Cek kalau ujian SUDAH SELESAI, langsung ke halaman login
+    // ✅ Cek kalau ujian SUDAH SELESAI, langsung ke halaman login & bersihkan data
     if (sessionStorage.getItem('ujianSelesai') === 'true') {
-        sessionStorage.removeItem('ujianSelesai');
+        bersihkanDataUjian(); // ✅ Hapus jejak lama
         startScreen.style.display = 'block';
         quizArea.style.display = 'none';
         controls.style.display = 'none';
@@ -415,12 +425,18 @@ window.onload = () => {
             setTimeout(() => {
                 if (window.daftarSoal) {
                     mulaiUjian();
-                    buatNavigasiSoal(); // ✅ TAMBAHKAN BARIS INI
+                    buatNavigasiSoal(); // ✅ Kotak navigasi muncul saat refresh
                     tampilkanSoal(dataTersimpan.halamanAktif || 0);
                 }
             }, 100);
         };
         document.body.appendChild(scriptSoal);
+    } else {
+        // ✅ JIKA TIDAK ADA DATA SAH: Paksa tampilkan halaman login
+        startScreen.style.display = 'block';
+        quizArea.style.display = 'none';
+        controls.style.display = 'none';
+        questionNav.style.display = 'none';
     }
 };
 
@@ -431,48 +447,46 @@ window.onload = () => {
     // ✅ LOGIKA AWAL MULAI UJIAN
     // ==============================================
     startBtn.addEventListener('click', () => {
-      const kelas = document.getElementById('kelas').value;
-      const mapel = document.getElementById('mapel').value;
-      const passwordInput = document.getElementById('password').value;
+  const kelas = document.getElementById('kelas').value;
+  const mapel = document.getElementById('mapel').value;
+  const passwordInput = document.getElementById('password').value;
 
-      // Validasi Form Tidak Kosong
-      if(!kelas || !mapel || !passwordInput) {
-          alert('Harap lengkapi pilihan Kelas, Mata Pelajaran, dan Password!');
-          return;
-      }
+  // Validasi: Jangan sampai ada yang kosong
+  if(!kelas || !mapel || !passwordInput) {
+      alert('Harap lengkapi Kelas, Mata Pelajaran, dan Password!');
+      return;
+  }
 
-      // ✅ LOGIKA PASSWORD BERDASARKAN KELAS
-      if(passwordInput !== daftarPassword[kelas]) {
-          alert(`Password salah untuk Kelas ${kelas}!\n\nPassword yang benar: ${daftarPassword[kelas]}`);
-          return; // Hentikan proses jika password salah
-      }
+  // ✅ LANGKAH PENTING: CEK PASSWORD DULU BARU LANJUT
+  if(passwordInput !== daftarPassword[kelas]) {
+      alert(`Password salah untuk Kelas ${kelas}!\n\nPassword yang benar: ${daftarPassword[kelas]}`);
+      return; // KELUAR JIKA PASSWORD SALAH, DATA TIDAK DISIMPAN
+  }
 
-      // ✅ LOGIKA PEMANGGILAN FILE SOAL GABUNGAN
-      let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
-      
-      // Membuat tag script untuk memuat file soal yang sesuai
-      const scriptSoal = document.createElement('script');
-      scriptSoal.src = namaFileSoal; 
-      
-      scriptSoal.onload = () => {
-          // ⏱️ Tunggu sebentar sampai data benar-benar masuk ke window
-          setTimeout(() => {
-              if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
-                  mulaiUjian();
-                  tampilkanSoal(0); // ✅ PAKSA TAMPILKAN SOAL PERTAMA SETELAH BERHASIL MUAT
-                  simpanDataKeStorage();
-              } else {
-                  alert('File soal dimuat tetapi datanya kosong! Pastikan isi file ' + namaFileSoal + ' sudah benar.');
-              }
-          }, 100); // Tunda 0,1 detik saja agar data siap
-      };
-      
-      scriptSoal.onerror = () => {
-        alert(`Gagal memuat file soal: ${namaFileSoal}.\n\nPastikan file tersebut ada di folder yang sama dengan halaman ini.`);
-      };
-      
-      document.body.appendChild(scriptSoal);
-    });
+  // ✅ HANYA JIKA PASSWORD BENAR, BARU PROSES BERJALAN
+  let namaFileSoal = `soal_tka_gabungan_${kelas}.js`;
+  const scriptSoal = document.createElement('script');
+  scriptSoal.src = namaFileSoal; 
+  
+  scriptSoal.onload = () => {
+      setTimeout(() => {
+          if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
+              mulaiUjian();
+              simpanDataKeStorage(); // ✅ DATA DISIMPAN DI SINI: SUDAH AMAN
+              buatNavigasiSoal();   // ✅ KOTAK NAVIGASI LANGSUNG MUNCUL
+              tampilkanSoal(0);
+          } else {
+              alert('File soal dimuat tetapi datanya kosong! Pastikan isi file ' + namaFileSoal + ' sudah benar.');
+          }
+      }, 100);
+  };
+  
+  scriptSoal.onerror = () => {
+    alert(`Gagal memuat file soal: ${namaFileSoal}.\n\nPastikan file tersebut ada di folder yang sama dengan halaman ini.`);
+  };
+  
+  document.body.appendChild(scriptSoal);
+});
 
     function mulaiUjian() {
   startScreen.style.display = 'none';
@@ -696,9 +710,9 @@ window.onload = () => {
       questionNav.style.display = 'none';
       
       // ✅ Hapus data penyimpanan setelah ujian selesai
-      localStorage.removeItem('dataUjianTKA'); 
-      sessionStorage.setItem('ujianSelesai', 'true');
-    }
+      bersihkanDataUjian(); 
+  sessionStorage.setItem('ujianSelesai', 'true');
+}
 
     // Navigasi Tombol
     prevBtn.onclick = () => tampilkanSoal(currentIndex - 1);
