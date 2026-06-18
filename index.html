@@ -480,124 +480,152 @@
       buatNavigasiSoal();
     }
 
+    // ==================================================
+    // ✅ LOGIKA NAVIGASI & TAMPILAN SOAL (SUDAH PERBAIKAN TOTAL)
+    // ==================================================
+
     // Membuat tombol navigasi kotak-kotak
-function buatNavigasiSoal() {
-  questionNav.innerHTML = '';
-  window.daftarSoal.forEach((soal) => {
-    // ❌ Sembunyikan INFO & ID 99
-    if (soal.tipe === 'INFO' || soal.id === 99) return;
+    function buatNavigasiSoal() {
+      questionNav.innerHTML = '';
+      window.daftarSoal.forEach((soal) => {
+        // ❌ Sembunyikan halaman INFO & ID 99 (khusus pemisah)
+        if (soal.tipe === 'INFO' || soal.id === 99) return;
 
-    const navItem = document.createElement('div');
-    navItem.className = 'nav-item unanswered';
-    navItem.textContent = soal.id; // Ambil angka asli
-    navItem.onclick = () => {
-      const posisi = window.daftarSoal.findIndex(s => s.id === soal.id);
-      tampilkanSoal(posisi);
-    };
-    questionNav.appendChild(navItem);
-  });
-}
-
-// Fungsi tampilkan soal
-function tampilkanSoal(idx) {
-  currentIndex = idx;
-  const soal = window.daftarSoal[idx];
-
-  // ✅ Tampilkan Judul
-  if (soal.tipe === 'INFO') {
-    pageIndicator.textContent = `INFORMASI`;
-    document.querySelector('.qno').innerHTML = `
-      <span>INFORMASI</span>
-      <span class="badge-type">INFO | - (0 - 0)</span>
-    `;
-  } else {
-    pageIndicator.textContent = `Soal ${soal.id} dari ${window.daftarSoal.filter(s => s.tipe !== 'INFO' && s.id !== 99).length}`;
-    document.querySelector('.qno').innerHTML = `
-      <span>Soal Nomor ${soal.id}</span>
-      <span class="badge-type">${soal.tipe} | ${soal.tingkatKesulitan} (${soal.rentangNilai})</span>
-    `;
-  }
-
-  // ✅ TANDAI WARNA KOTAK
-  document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.remove('active', 'answered', 'unanswered');
-    el.classList.add('unanswered');
-
-    // Cari posisi asli soal berdasarkan ID
-    const posisiAsli = window.daftarSoal.findIndex(s => s.id == el.textContent);
-    
-    if (posisiAsli === idx) el.classList.add('active');
-    if (posisiAsli !== -1 && jawabanSiswa[posisiAsli] !== undefined) {
-      el.classList.remove('unanswered');
-      el.classList.add('answered');
+        const navItem = document.createElement('div');
+        navItem.className = 'nav-item unanswered';
+        navItem.textContent = soal.id; // Tampilkan angka asli soal
+        navItem.onclick = () => {
+          // Cari posisi asli soal berdasarkan ID
+          const posisi = window.daftarSoal.findIndex(s => s.id === soal.id);
+          if(posisi !== -1) tampilkanSoal(posisi);
+        };
+        questionNav.appendChild(navItem);
+      });
     }
-  });
 
-  // --- SISA KODE TETAP SAMA ---
-  let htmlSoal = `<div class="question">${soal.soal}</div>`;
+    // Fungsi utama menampilkan soal
+    function tampilkanSoal(idx) {
+      currentIndex = idx;
+      const soal = window.daftarSoal[idx];
 
-  if(soal.gambar) {
-    htmlSoal += `<img src="${soal.gambar}" alt="Gambar Soal" style="max-width:100%; border-radius:8px; margin: 8px 0;">`;
-  }
+      // ✅ TAMPILKAN JUDUL DI ATAS
+      if (soal.tipe === 'INFO') {
+        pageIndicator.textContent = `INFORMASI`;
+      } else {
+        const totalSoal = window.daftarSoal.filter(s => s.tipe !== 'INFO' && s.id !== 99).length;
+        pageIndicator.textContent = `Soal ${soal.id} dari ${totalSoal}`;
+      }
 
-  if(soal.tipe === 'PG') {
-    htmlSoal += `<div class="choices">`;
-    soal.pilihan.forEach((pil, noPil) => {
-      const huruf = String.fromCharCode(65 + noPil);
-      const terpilih = jawabanSiswa[idx] === huruf ? 'selected' : '';
-      htmlSoal += `
-        <label class="choice ${terpilih}">
-          <input type="radio" name="jawaban${idx}" value="${huruf}" 
-            ${jawabanSiswa[idx] === huruf ? 'checked' : ''} 
-            onchange="simpanJawaban(${idx}, '${huruf}')">
-          ${pil}
-        </label>
-      `;
-    });
-    htmlSoal += `</div>`;
-  } 
-  else if(soal.tipe === 'INFO') {
-    htmlSoal += `<div style="height: 50px;"></div>`; 
-  }
-  else if(soal.tipe === 'PGK') {
-    htmlSoal += `<div class="choices">`;
-    soal.pilihan.forEach((pil, noPil) => {
-      const terpilih = jawabanSiswa[idx]?.includes(noPil) ? 'selected' : '';
-      htmlSoal += `
-        <label class="choice ${terpilih}">
-          <input type="checkbox" name="jawaban${idx}" value="${noPil}" 
-            ${jawabanSiswa[idx]?.includes(noPil) ? 'checked' : ''} 
-            onchange="tambahJawabanPGK(${idx}, ${noPil}, this.checked)">
-          ${pil}
-        </label>
-      `;
-    });
-    htmlSoal += `</div>`;
-  }
+      // ✅ RENDER BAGIAN ISI SOAL
+      let htmlSoal = '';
 
-  quizArea.innerHTML = htmlSoal;
+      if (soal.tipe === 'INFO') {
+        // Tampilan HALAMAN PEMISAH
+        htmlSoal = `
+          <div class="qno">
+            <span>INFORMASI</span>
+            <span class="badge-type">INFO | - (0 - 0)</span>
+          </div>
+          <div class="question">${soal.soal}</div>
+          <div style="height: 50px;"></div>
+        `;
+      } else {
+        // Tampilan SOAL BIASA
+        htmlSoal = `
+          <div class="qno">
+            <span>Soal Nomor ${soal.id}</span>
+            <span class="badge-type">${soal.tipe} | ${soal.tingkatKesulitan} (${soal.rentangNilai})</span>
+          </div>
+          <div class="question">${soal.soal}</div>
+        `;
 
-  if (window.MathJax) {
-    MathJax.typesetPromise && MathJax.typesetPromise([quizArea]);
-  }
+        // Tampilkan Gambar jika ada
+        if(soal.gambar) {
+          htmlSoal += `<img src="${soal.gambar}" alt="Gambar Soal" style="max-width:100%; border-radius:8px; margin: 8px 0;">`;
+        }
 
-  prevBtn.disabled = idx === 0;
-  if(idx === window.daftarSoal.length - 1) {
-    nextBtn.textContent = 'SELESAI & NILAI';
-    nextBtn.onclick = tampilkanHasil;
-  } else {
-    nextBtn.textContent = 'Selanjutnya';
-    nextBtn.onclick = () => tampilkanSoal(idx + 1);
-  }
+        // Render PILIHAN JAWABAN: PILIHAN GANDA
+        if(soal.tipe === 'PG') {
+          htmlSoal += `<div class="choices">`;
+          soal.pilihan.forEach((pil, noPil) => {
+            const huruf = String.fromCharCode(65 + noPil);
+            const terpilih = jawabanSiswa[idx] === huruf ? 'selected' : '';
+            htmlSoal += `
+              <label class="choice ${terpilih}">
+                <input type="radio" name="jawaban${idx}" value="${huruf}" 
+                  ${jawabanSiswa[idx] === huruf ? 'checked' : ''} 
+                  onchange="simpanJawaban(${idx}, '${huruf}')">
+                ${pil}
+              </label>
+            `;
+          });
+          htmlSoal += `</div>`;
+        } 
+        // Render PILIHAN JAWABAN: PILIHAN GANDA KOMPLEKS (LEBIH DARI 1 JAWABAN)
+        else if(soal.tipe === 'PGK') {
+          htmlSoal += `<div class="choices">`;
+          soal.pilihan.forEach((pil, noPil) => {
+            const terpilih = jawabanSiswa[idx]?.includes(noPil) ? 'selected' : '';
+            htmlSoal += `
+              <label class="choice ${terpilih}">
+                <input type="checkbox" name="jawaban${idx}" value="${noPil}" 
+                  ${jawabanSiswa[idx]?.includes(noPil) ? 'checked' : ''} 
+                  onchange="tambahJawabanPGK(${idx}, ${noPil}, this.checked)">
+                ${pil}
+              </label>
+            `;
+          });
+          htmlSoal += `</div>`;
+        }
+      }
 
-  simpanDataKeStorage();
-}
+      // Masukkan ke layar
+      quizArea.innerHTML = htmlSoal;
+
+      // ✅ PERBAIKAN WARNA KOTAK NAVIGASI (PENTING!)
+      document.querySelectorAll('.nav-item').forEach(el => {
+        const nomorDiKotak = parseInt(el.textContent);
+        
+        // Reset semua warna dulu
+        el.classList.remove('active', 'answered', 'unanswered');
+        el.classList.add('unanswered'); // Default: Kuning
+
+        // Cari posisi asli soal yang nomornya sama dengan kotak ini
+        const posisiAsli = window.daftarSoal.findIndex(s => s.id === nomorDiKotak);
+
+        // 1. Tandai kotak yang sedang dibuka (Warna Merah/Oranye)
+        if (posisiAsli === idx) {
+          el.classList.add('active');
+        }
+
+        // 2. Tandai kotak yang SUDAH DIJAWAB (Warna Biru)
+        if (posisiAsli !== -1 && jawabanSiswa[posisiAsli] !== undefined) {
+          el.classList.remove('unanswered');
+          el.classList.add('answered');
+        }
+      });
+
+      // Panggil MathJax agar rumus matematika dirender ulang
+      if (window.MathJax) {
+        MathJax.typesetPromise && MathJax.typesetPromise([quizArea]);
+      }
+
+      // Atur tombol Sebelumnya / Selanjutnya / Selesai
+      prevBtn.disabled = idx === 0;
+      if(idx === window.daftarSoal.length - 1) {
+        nextBtn.textContent = 'SELESAI & NILAI';
+        nextBtn.onclick = tampilkanHasil;
+      } else {
+        nextBtn.textContent = 'Selanjutnya';
+        nextBtn.onclick = () => tampilkanSoal(idx + 1);
+      }
+
+      simpanDataKeStorage(); // Simpan setiap kali pindah soal
+    }
 
     // Fungsi simpan jawaban PG
     function simpanJawaban(idx, jawaban) {
       jawabanSiswa[idx] = jawaban;
-      document.querySelectorAll('.nav-item')[idx].classList.remove('unanswered');
-      document.querySelectorAll('.nav-item')[idx].classList.add('answered');
       simpanDataKeStorage(); // Simpan setiap kali jawaban berubah
     }
 
@@ -606,9 +634,6 @@ function tampilkanSoal(idx) {
       if(!jawabanSiswa[idx]) jawabanSiswa[idx] = [];
       if(dicek) jawabanSiswa[idx].push(nilai);
       else jawabanSiswa[idx] = jawabanSiswa[idx].filter(n => n !== nilai);
-      if(jawabanSiswa[idx].length > 0) {
-        document.querySelectorAll('.nav-item')[idx].classList.add('answered');
-      }
       simpanDataKeStorage(); // Simpan setiap kali jawaban berubah
     }
 
@@ -617,7 +642,8 @@ function tampilkanSoal(idx) {
       let benar = 0;
       let totalNilai = 0;
       window.daftarSoal.forEach((soal, idx) => {
-        if (soal.tipe === 'INFO') return; // Lewati halaman info
+        // ❌ LEWATI halaman info / pemisah
+        if (soal.tipe === 'INFO' || soal.id === 99) return; 
         
         const nilaiSoal = parseInt(soal.rentangNilai.split('–')[1]); // Ambil nilai maks
         if(soal.tipe === 'PG') {
@@ -635,10 +661,14 @@ function tampilkanSoal(idx) {
           }
         }
       });
+      
+      // Hitung jumlah total soal yang valid
+      const totalSoalValid = window.daftarSoal.filter(s => s.tipe !== 'INFO' && s.id !== 99).length;
+      
       return {benar, totalNilai, maksNilai: window.daftarSoal.reduce((sum, s) => {
-          if(s.tipe === 'INFO') return sum; // Jangan hitung info
+          if(s.tipe === 'INFO' || s.id === 99) return sum; 
           return sum + parseInt(s.rentangNilai.split('–')[1]);
-      }, 0)};
+      }, 0), totalSoalValid};
     }
 
     // Tampilan Hasil Akhir
@@ -654,7 +684,7 @@ function tampilkanSoal(idx) {
               <span>Benar</span>
             </div>
             <div class="result-item wrong">
-              <span class="result-val">${(window.daftarSoal.filter(s=>s.tipe!=='INFO').length) - hasil.benar}</span> 
+              <span class="result-val">${hasil.totalSoalValid - hasil.benar}</span> 
               <span>Salah</span>
             </div>
           </div>
