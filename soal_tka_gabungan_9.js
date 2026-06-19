@@ -219,7 +219,7 @@ window.daftarSoal = [
   {
     id: 37,
     kategori: "NUMERASI",
-    tipe: "BS", // ✅ DIUBAH jadi BS (Benar Salah), bukan PGK lagi
+    tipe: "BS", // KUNCI UTAMA: tipe harus "BS", bukan PGK
     tingkatKesulitan: "Sedang",
     rentangNilai: "8 – 10",
     soal: `
@@ -235,7 +235,7 @@ window.daftarSoal = [
         "Selama 10 hari pertama, proyek mengalami ketertinggalan jadwal yang setara dengan hasil kerja 5 orang selama 10 hari.",
         "Agar renovasi tetap selesai tepat waktu manajer cukup mempekerjakan kembali 15 pegawai semula tanpa perlu menambah tenaga kerja tambahan."
     ],
-    // ✅ Format kunci: 0 = Benar, 1 = Salah (persis contoh Adit)
+    // KUNCI JAWABAN: 0 = Benar, 1 = Salah (urutan sesuai pernyataan)
     kunciJawaban: [0, 0, 1]
 },
   {
