@@ -994,6 +994,71 @@
             }
         }, 150);
     });
+
+   // ==================================================
+// 🛡️ SISTEM ANTI-COPAS, ANTI-KLIK KANAN & INSPECT (PRO)
+// ==================================================
+(function amankanUjian() {
+    // 1. Suntik CSS Otomatis agar teks tidak bisa diblok/diseleksi sama sekali
+    const style = document.createElement('style');
+    style.innerHTML = `
+        body, html, #quizArea, .question, .choice, label {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-user-drag: none !important;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 2. Blokir Menu Klik Kanan (Context Menu)
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        alert("⚠️ Demi keamanan, fitur klik kanan dinonaktifkan selama ujian!");
+    });
+
+    // 3. Blokir Kombinasi Tombol Keyboard (Shortcuts) Contek-Mencontek
+    document.addEventListener('keydown', function(e) {
+        // Cek apakah tombol Ctrl (Windows) atau Cmd (Mac) sedang ditekan
+        const ctrlAtauCmd = e.ctrlKey || e.metaKey;
+
+        // Blokir Ctrl+C (Copy), Ctrl+V (Paste), Ctrl+X (Cut)
+        if (ctrlAtauCmd && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) {
+            e.preventDefault();
+            alert("⚠️ Sistem Mendeteksi Tindakan Ilegal: Dilarang Copy-Paste!");
+            return false;
+        }
+
+        // Blokir Ctrl+S (Save Page) dan Ctrl+P (Print Page)
+        if (ctrlAtauCmd && (e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) {
+            e.preventDefault();
+            alert("⚠️ Dilarang menyimpan atau mencetak halaman ini!");
+            return false;
+        }
+
+        // Blokir Ctrl+U (View Source - Mencegah siswa mengintip kode HTML & kunci jawaban)
+        if (ctrlAtauCmd && (e.key === 'u' || e.key === 'U')) {
+            e.preventDefault();
+            alert("⚠️ Akses ke source code ujian ditolak!");
+            return false;
+        }
+
+        // Blokir F12 dan Ctrl+Shift+I / Ctrl+Shift+J (Inspect Element / Developer Tools)
+        if (
+            e.key === 'F12' || 
+            (ctrlAtauCmd && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))
+        ) {
+            e.preventDefault();
+            alert("⚠️ Developer Tools diblokir! Fokus pada ujian Anda.");
+            return false;
+        }
+    });
+
+    // 4. Blokir Fitur Drag & Drop (Mencegah teks diseret langsung ke tab browser lain)
+    document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+    document.addEventListener('drop', function(e) { e.preventDefault(); });
+})();
 </script>
 
 </body>
