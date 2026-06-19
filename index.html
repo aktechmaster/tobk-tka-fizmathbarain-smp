@@ -728,6 +728,10 @@
         return {benar, totalNilai, maksNilai, totalSoalValid};
     }
 
+    // ==================================================
+    // ✅ TAMPILAN HASIL AKHIR & TOMBOL KEMBALI
+    // ==================================================
+
     function tampilkanHasil() {
         const hasil = hitungSkor();
         quizArea.innerHTML = `
@@ -744,16 +748,33 @@
                         <span>Salah</span>
                     </div>
                 </div>
+                
+                <button onclick="kembaliKeAwal()" style="margin-top: 25px; padding: 12px 20px; background: #0056b3; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; transition: background 0.3s;">
+                    🏠 Kembali ke Halaman Awal
+                </button>
             </div>
         `;
+        
         controls.style.display = 'none';
         questionNav.style.display = 'none';
-        document.getElementById('timerBadge').classList.add('hidden');
+        
+        // Pengecekan aman (safe check) agar tidak error jika timerBadge tidak ada
+        const timerBadge = document.getElementById('timerBadge');
+        if (timerBadge) {
+            timerBadge.classList.add('hidden');
+        }
         
         bersihkanDataUjian(); 
         sessionStorage.setItem('ujianSelesai', 'true');
     }
 
+    // ✅ FUNGSI UNTUK MERESET KE HALAMAN LOGIN / AWAL
+    window.kembaliKeAwal = function() {
+        sessionStorage.removeItem('ujianSelesai'); 
+        window.location.reload(); 
+    };
+
+    // (Kode lanjutan Anda yang sudah ada sebelumnya)
     prevBtn.onclick = () => tampilkanSoal(currentIndex - 1);
 
    // ==================================================
