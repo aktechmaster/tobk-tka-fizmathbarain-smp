@@ -193,7 +193,7 @@ window.daftarSoal = [
       "D. Rp192.500,00"
     ],
     kunciJawaban: "B"
-  }
+  },
   {
     id: 36,
     kategori: "NUMERASI",
@@ -318,7 +318,7 @@ window.daftarSoal = [
       "Pernyataan 4"
     ],
     kunciJawaban: [0, 3]
-  }
+  },
   {
     id: 41,
     kategori: "NUMERASI",
@@ -434,7 +434,7 @@ window.daftarSoal = [
       "D. 70 kg."
     ],
     kunciJawaban: "B"
-  }
+  },
   {
     id: 46,
     kategori: "NUMERASI",
@@ -548,7 +548,7 @@ window.daftarSoal = [
       "Benar, Benar, Salah"
     ],
     kunciJawaban: [0]
-  }
+  },
   {
     id: 51,
     kategori: "NUMERASI",
@@ -684,7 +684,7 @@ window.daftarSoal = [
       "D. 21.600 buah"
     ],
     kunciJawaban: "B"
-  }
+  },
   {
     id: 56,
     kategori: "NUMERASI",
@@ -825,4 +825,4 @@ window.daftarSoal = [
     ],
     kunciJawaban: [0, 1, 2]
   }
-];
+  }];
