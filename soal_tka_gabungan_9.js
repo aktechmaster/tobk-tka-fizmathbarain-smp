@@ -321,28 +321,17 @@ window.daftarSoal = [
   {
     id: 41,
     kategori: "NUMERASI",
-    tipe: "PGK",
-    tingkatKesulitan: "Sedang",
-    rentangNilai: "8 – 10",
-    soal: `
-    <p><strong>Alur Pelayanan Donor Darah</strong></p>
-    <p>Kegiatan donor adalah salah satu bentuk aksi kemanusiaan yang sangat bermanfaat untuk diri sendiri dan orang lain. Setetes darah yang disumbangkan dapat memberikan harapan hidup bagi orang lain yang membutuhkan, terutama mereka yang mengalami kecelakaan, setelah menjalani operasi, atau menderita penyakit yang serius. Tak hanya untuk penerima, pendonor juga bisa mendapatkan manfaat. Diantaranya bermanfaat untuk mendeteksi penyakit, meningkatkan produksi sel darah, dan menjaga kesehatan jantung. Oleh karena itu disarankan untuk melakukan donor darah tiga bulan setelah donor darah terakhir.</p>
-    <p>Biasanya aksi donor darah difasilitasi oleh Palang Merah Indonesia (PMI). Berikut adalah alur kegiatan donor darah di sebuah posko PMI.</p>
-    <p><em>(Lihat gambar: 9,10,11.png)</em></p>
-    <p>Posko PMI menambahkan satu tempat lagi untuk proses pengambilan darah dan di tahap pemulihan. Sehingga dapat melayani 2 orang sekaligus pada proses pengambilan darah. Pada hari ini saat pukul 11.30 terlihat sudah ada 2 orang yang sedang berada di ruang pemulihan. Salah seorang baru saja memulai tahap pemulihan dan satu orang lainnya sudah berjalan 15 menit. Adapula 1 orang calon pendonor yang akan melakukan pendaftaran, 1 orang akan melakukan pemeriksaan kesehatan, 1 orang di kursi tunggu, 2 orang sedang proses pengambilan darah.</p>
-    <br>
-    <p><strong>Tentukan Benar atau Salah untuk setiap pernyataan berikut tentang situasi di lokasi donor darah pada hari tersebut!</strong></p>
-    <p>• Posko PMI mulai didatangi calon pendonor sejak pukul 10.30.</p>
-    <p>• Ada kemungkinan terdapat 3 orang di ruang tunggu.</p>
-    <p>• Pada pukul 11.00 belum ada pendonor yang memasuki tahap pemulihan.</p>
-    <strong>Pilih semua jawaban benar!</strong>
-    `,
-    gambar: "9,10,11.png",
-    pilihan: [
-      "Benar, Salah, Benar"
+    tipe: "BS", 
+    tingkatKesulitan: "Sedang", // ✅ Tingkat kesulitan berhasil ditambahkan
+    soal: "Tentukan Benar atau Salah untuk setiap pernyataan berikut tentang situasi di lokasi donor darah pada hari tersebut!",
+    rentangNilai: "0–10",
+    pernyataan: [
+        "Posko PMI mulai didatangi calon pendonor sejak pukul 10.30.",
+        "Ada kemungkinan terdapat 3 orang di ruang tunggu.",
+        "Pada pukul 11.00 belum ada pendonor yang memasuki tahap pemulihan."
     ],
-    kunciJawaban: [0]
-  },
+    kunciJawaban: ["B", "S", "B"]
+}
   {
     id: 42,
     kategori: "NUMERASI",
