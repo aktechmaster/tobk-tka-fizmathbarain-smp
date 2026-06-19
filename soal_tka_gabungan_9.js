@@ -235,9 +235,11 @@ window.daftarSoal = [
     `,
     gambar: null,
     pilihan: [
-      "Benar, Benar, Salah"
+      "Sisa pekerjaan yang harus diselesaikan setelah hari ke-10 adalah setara dengan pekerjaan 800 hari penuh yang dikerjakan 1 orang.",
+      "Selama 10 hari pertama, proyek mengalami ketertinggalan jadwal yang setara dengan hasil kerja 5 orang selama 10 hari.",
+      "Agar renovasi tetap selesai tepat waktu manajer cukup mempekerjakan kembali 15 pegawai semula tanpa perlu menambah tenaga kerja tambahan."
     ],
-    kunciJawaban: [0]
+    kunciJawaban: [0, 1]
   },
   {
     id: 38,
