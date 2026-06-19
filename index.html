@@ -430,12 +430,18 @@
 
     // Logika Mulai Ujian (UI Tampilan Utama)
     function mulaiUjian() {
-        startScreen.style.display = 'none';
-        quizArea.style.display = 'block';
-        controls.style.display = 'flex';
-        questionNav.style.display = 'grid';
-        document.getElementById('timerBadge').classList.remove('hidden');
-        document.getElementById('violationBadge').classList.remove('hidden');
+        if (startScreen) startScreen.style.display = 'none';
+        if (quizArea) quizArea.style.display = 'block';
+        if (controls) controls.style.display = 'flex';
+        if (questionNav) questionNav.style.display = 'grid';
+        
+        // Gunakan pengamanan (if) agar tidak crash jika ID HTML tidak ada
+        const timerB = document.getElementById('timerBadge');
+        if (timerB) timerB.classList.remove('hidden');
+        
+        const violationB = document.getElementById('violationBadge');
+        if (violationB) violationB.classList.remove('hidden');
+        
         jalankanTimerUjian();
     }
 
