@@ -2,9 +2,9 @@
 // BANK SOAL TKA GABUNGAN: LITERASI & NUMERASI KELAS 9
 // ==================================================
 window.daftarSoal = [
-
   {
     id: 1,
+    kategori: "LITERASI", // ✅ Kategori ditambahkan
     tipe: "PG",
     tingkatKesulitan: "Sangat Mudah",
     rentangNilai: "4 – 5",
@@ -21,6 +21,7 @@ window.daftarSoal = [
   },
   {
     id: 2,
+    kategori: "LITERASI", // ✅ Kategori ditambahkan
     tipe: "PGK",
     tingkatKesulitan: "Sedang",
     rentangNilai: "8 – 10",
@@ -37,6 +38,7 @@ window.daftarSoal = [
   },
   {
     id: 3,
+    kategori: "LITERASI", // ✅ Kategori ditambahkan
     tipe: "PGK",
     tingkatKesulitan: "Lumayan Sulit",
     rentangNilai: "11 – 13",
@@ -53,6 +55,7 @@ window.daftarSoal = [
   },
   {
     id: 4,
+    kategori: "LITERASI", // ✅ Kategori ditambahkan
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -68,6 +71,7 @@ window.daftarSoal = [
   },
   {
     id: 5,
+    kategori: "LITERASI", // ✅ Kategori ditambahkan
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -84,6 +88,7 @@ window.daftarSoal = [
 
   {
     id: 99,
+    kategori: "-", // Info tidak masuk perhitungan
     tipe: "INFO",
     tingkatKesulitan: "-",
     rentangNilai: "0 – 0",
@@ -104,6 +109,7 @@ window.daftarSoal = [
 
   {
     id: 6,
+    kategori: "NUMERASI", // ✅ Kategori ditambahkan
     tipe: "PG",
     tingkatKesulitan: "Sangat Mudah",
     rentangNilai: "4 – 5",
@@ -121,6 +127,7 @@ window.daftarSoal = [
   },
   {
     id: 7,
+    kategori: "NUMERASI", // ✅ Kategori ditambahkan
     tipe: "PGK",
     tingkatKesulitan: "Sedang",
     rentangNilai: "8 – 10",
@@ -137,6 +144,7 @@ window.daftarSoal = [
   },
   {
     id: 8,
+    kategori: "NUMERASI", // ✅ Kategori ditambahkan
     tipe: "PGK",
     tingkatKesulitan: "Lumayan Sulit",
     rentangNilai: "11 – 13",
@@ -154,6 +162,7 @@ window.daftarSoal = [
   },
   {
     id: 9,
+    kategori: "NUMERASI", // ✅ Kategori ditambahkan
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -170,6 +179,7 @@ window.daftarSoal = [
   },
   {
     id: 10,
+    kategori: "NUMERASI", // ✅ Kategori ditambahkan
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -184,5 +194,4 @@ window.daftarSoal = [
     ],
     kunciJawaban: "B"
   }
-
-]; // ✅ TANDA PENUTUP ARRAY YANG HILANG SEBELUMNYA
+];
