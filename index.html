@@ -577,6 +577,21 @@
         });
     }
 
+   // ==================================================
+    // ✅ FUNGSI KONFIRMASI SEBELUM SELESAI UJIAN
+    // ==================================================
+    
+    window.konfirmasiSelesai = function() {
+        // Munculkan dialog konfirmasi bawaan browser
+        const yakin = confirm("⚠️ APAKAH KAMU YAKIN INGIN MENGAKHIRI UJIAN?\n\nPastikan semua soal telah dijawab dengan teliti.\nSetelah menekan 'OK', jawaban akan dikirim dan tidak bisa diubah lagi.");
+        
+        // Jika siswa menekan tombol "OK" pada pop-up
+        if (yakin) {
+            tampilkanHasil(); // Panggil fungsi hasil akhir
+        }
+        // Jika siswa menekan "Cancel", tidak terjadi apa-apa (ujian dilanjutkan)
+    };
+
     // Menampilkan soal berdasarkan index
     function tampilkanSoal(idx) {
         currentIndex = idx;
