@@ -577,22 +577,7 @@
         });
     }
 
-   // ==================================================
-    // ✅ FUNGSI KONFIRMASI SEBELUM SELESAI UJIAN
-    // ==================================================
-    
-    window.konfirmasiSelesai = function() {
-        // Munculkan dialog konfirmasi bawaan browser
-        const yakin = confirm("⚠️ APAKAH KAMU YAKIN INGIN MENGAKHIRI UJIAN?\n\nPastikan semua soal telah dijawab dengan teliti.\nSetelah menekan 'OK', jawaban akan dikirim dan tidak bisa diubah lagi.");
-        
-        // Jika siswa menekan tombol "OK" pada pop-up
-        if (yakin) {
-            tampilkanHasil(); // Panggil fungsi hasil akhir
-        }
-        // Jika siswa menekan "Cancel", tidak terjadi apa-apa (ujian dilanjutkan)
-    };
-
-    // Menampilkan soal berdasarkan index
+   // Menampilkan soal berdasarkan index
     function tampilkanSoal(idx) {
         currentIndex = idx;
         const soal = window.daftarSoal[idx];
@@ -657,6 +642,47 @@
                 });
                 htmlSoal += `</div>`;
             }
+            // ==================================================
+            // ✅ TAMBAHAN BARU: TIPE BS (BENAR / SALAH)
+            // ==================================================
+            else if(soal.tipe === 'BS') {
+                htmlSoal += `
+                <div style="overflow-x: auto; margin-top: 15px;">
+                    <table class="bs-table" style="width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;">
+                        <thead style="background-color: #f0f4f8; border-bottom: 1px solid #e2e8f0;">
+                            <tr>
+                                <th style="padding: 15px; text-align: left; color: #0056b3; font-weight: bold;">Pernyataan</th>
+                                <th style="padding: 15px; text-align: center; color: #0056b3; font-weight: bold; width: 100px;">BENAR</th>
+                                <th style="padding: 15px; text-align: center; color: #0056b3; font-weight: bold; width: 100px;">SALAH</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                
+                soal.pernyataan.forEach((p, noPernyataan) => {
+                    // Cek apakah data jawabanSiswa[idx] sudah ada, jika belum set kosong
+                    const jawabanSaatIni = (jawabanSiswa[idx] && jawabanSiswa[idx][noPernyataan]) ? jawabanSiswa[idx][noPernyataan] : null;
+                    
+                    htmlSoal += `
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 15px; color: #334155; vertical-align: middle;">${p}</td>
+                            <td style="padding: 15px; text-align: center; vertical-align: middle;">
+                                <input type="radio" name="jawaban_${idx}_${noPernyataan}" value="B" 
+                                    ${jawabanSaatIni === 'B' ? 'checked' : ''} 
+                                    style="transform: scale(1.5); cursor: pointer;"
+                                    onchange="simpanJawabanBS(${idx}, ${noPernyataan}, 'B')">
+                            </td>
+                            <td style="padding: 15px; text-align: center; vertical-align: middle;">
+                                <input type="radio" name="jawaban_${idx}_${noPernyataan}" value="S" 
+                                    ${jawabanSaatIni === 'S' ? 'checked' : ''} 
+                                    style="transform: scale(1.5); cursor: pointer;"
+                                    onchange="simpanJawabanBS(${idx}, ${noPernyataan}, 'S')">
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                htmlSoal += `</tbody></table></div>`;
+            }
         }
 
         quizArea.innerHTML = htmlSoal;
@@ -712,6 +738,21 @@
         }
         tampilkanSoal(currentIndex);
     }
+   // ==================================================
+    // ✅ TAMBAHAN BARU: SIMPAN JAWABAN BENAR/SALAH (BS)
+    // ==================================================
+    function simpanJawabanBS(idx, noPernyataan, jawaban) {
+        // Cek apakah wadah jawaban untuk soal ini sudah ada, jika belum buatkan bentuk Array (daftar)
+        if (!jawabanSiswa[idx] || !Array.isArray(jawabanSiswa[idx])) {
+            jawabanSiswa[idx] = [];
+        }
+        
+        // Simpan jawaban ('B' atau 'S') di urutan pernyataan yang tepat
+        jawabanSiswa[idx][noPernyataan] = jawaban;
+        
+        // Perbarui tampilan agar kotak navigasi soal berubah status menjadi sudah dijawab
+        tampilkanSoal(currentIndex);
+    }
 
     // ==================================================
     // ✅ FUNGSI HITUNG SKOR (RINCIAN LENGKAP KATEGORI)
@@ -749,6 +790,17 @@
                 const jawabanUser = jawabanSiswa[idx] || [];
                 const kunci = soal.kunciJawaban || [];
                 if(JSON.stringify(jawabanUser.sort()) === JSON.stringify(kunci.sort())) isBenar = true;
+            } 
+            // ==================================================
+            // ✅ TAMBAHAN BARU: SKOR UNTUK TIPE BS
+            // ==================================================
+            else if(soal.tipe === 'BS') {
+                const jawabanUser = jawabanSiswa[idx] || [];
+                const kunci = soal.kunciJawaban || [];
+                // Urutan pada BS sangat penting, jadi tidak pakai sort()
+                if(JSON.stringify(jawabanUser) === JSON.stringify(kunci)) {
+                    isBenar = true;
+                }
             }
 
             // Memasukkan nilai jika jawaban benar
