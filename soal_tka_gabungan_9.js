@@ -108,92 +108,95 @@ window.daftarSoal = [
   },
 
   // ==========================================
-    // SOAL NOMOR 31 (TEMPLATE PG)
+    // SOAL NOMOR 31 (PG)
     // ==========================================
     {
         id: 31,
         kategori: "NUMERASI",
         rentangNilai: "0-3",
         tipe: "PG",
-        soal: "Tuliskan teks atau stimulus soal Numerasi nomor 31 di sini. Gunakan tag &lt;br&gt;&lt;br&gt; untuk membuat baris baru jika teksnya panjang.",
+        soal: "Ani membeli 2 pulpen dan 2 pensil di sebuah toko alat tulis. Harga satuan pulpen adalah Rp12.000,00 dan harga satuan pensil adalah Rp8.000,00. Kebetulan, toko tersebut sedang memberikan promo \"Hemat Berempat\" dengan ketentuan sebagai berikut:<br><br>\"Setiap pembelian 4 barang (boleh campur) akan mendapat potongan harga sebesar harga 1 barang termurah yang dibeli\".<br><br>Berapa total harga yang harus dibayar Ani dari semua barang yang dibeli?",
         pilihan: [
-            "Pilihan Jawaban A",
-            "Pilihan Jawaban B",
-            "Pilihan Jawaban C",
-            "Pilihan Jawaban D"
+            "Rp32.000,00.",
+            "Rp36.000,00.",
+            "Rp40.000,00.",
+            "Rp44.000,00."
         ],
         kunciJawaban: "A"
     },
 
     // ==========================================
-    // SOAL NOMOR 32 (TEMPLATE BS)
+    // SOAL NOMOR 32 (PGK)
     // ==========================================
     {
         id: 32,
         kategori: "NUMERASI",
         rentangNilai: "0-3",
-        tipe: "BS",
-        soal: "Tuliskan perintah soal Benar-Salah nomor 32 di sini. Contoh: Tentukan Benar atau Salah untuk setiap pernyataan berikut!",
+        tipe: "PGK",
+        soal: "Sebuah toko menjual 1 kg beras seharga Rp12.750,00. Jika seseorang membeli 19,6 kg untuk jenis beras yang sama, berapa perkiraan total harga yang mungkin?<br><br>Pilih semua jawaban benar! Jawaban benar lebih dari satu.",
         pilihan: [
-            "Pernyataan pertama yang harus dianalisis siswa.",
-            "Pernyataan kedua yang harus dianalisis siswa.",
-            "Pernyataan ketiga yang harus dianalisis siswa."
+            "Kurang dari Rp260.000,00.",
+            "Lebih besar dari Rp240.000,00.",
+            "Dapat diperkirakan dengan 20 × 12.500,00.",
+            "Mendekati Rp230.000,00."
         ],
-        kunciJawaban: ["B", "S", "B"] 
+        // Kunci: Pernyataan 1, 2, dan 3 (Indeks 0, 1, dan 2)
+        kunciJawaban: [0, 1, 2]
     },
 
     // ==========================================
-    // SOAL NOMOR 33 (TEMPLATE PGK)
+    // SOAL NOMOR 33 (PGK)
     // ==========================================
     {
         id: 33,
         kategori: "NUMERASI",
         rentangNilai: "0-4",
         tipe: "PGK",
-        soal: "Tuliskan perintah soal Pilihan Ganda Kompleks nomor 33 di sini. Contoh: Pilih semua jawaban yang benar! Jawaban benar lebih dari satu.",
+        soal: "Terdapat tiga bilangan yang dinyatakan dengan $(33^2 - 3^2)$, $(8^2 + 296)$, dan $(36 \\times 35)$. Bilangan apa saja yang merupakan faktor persekutuan ketiga bilangan tersebut?<br><br>Pilihlah jawaban yang benar! Jawaban benar lebih dari satu.",
         pilihan: [
-            "Pernyataan atau pilihan jawaban ke-1",
-            "Pernyataan atau pilihan jawaban ke-2",
-            "Pernyataan atau pilihan jawaban ke-3",
-            "Pernyataan atau pilihan jawaban ke-4"
+            "$2^3 \\times 3^3 \\times 7$",
+            "$2^2 \\times 3^2 \\times 7$",
+            "$2^2 \\times 3^2 \\times 5$",
+            "$2 \\times 3^2 \\times 5$"
         ],
-        kunciJawaban: [0, 2]
+        // Kunci: Pernyataan 3 dan 4 (Indeks 2 dan 3)
+        kunciJawaban: [2, 3]
     },
 
     // ==========================================
-    // SOAL NOMOR 34 (TEMPLATE PG)
+    // SOAL NOMOR 34 (PG)
     // ==========================================
     {
         id: 34,
         kategori: "NUMERASI",
         rentangNilai: "0-3",
         tipe: "PG",
-        soal: "Tuliskan teks atau stimulus soal Numerasi nomor 34 di sini.",
+        soal: "Untuk membuat larutan desinfektan atau larutan pembasmi kuman, dibutuhkan cairan A dan B dengan perbandingan A : B = 3 : 5.<br><br>Jika tersedia 2,5 liter cairan B, maka volume maksimum larutan yang dapat dibuat adalah ....",
         pilihan: [
-            "Pilihan Jawaban A",
-            "Pilihan Jawaban B",
-            "Pilihan Jawaban C",
-            "Pilihan Jawaban D"
+            "3,6 liter",
+            "4,0 liter",
+            "4,8 liter",
+            "6,4 liter"
         ],
         kunciJawaban: "B"
     },
 
     // ==========================================
-    // SOAL NOMOR 35 (TEMPLATE PG)
+    // SOAL NOMOR 35 (PG)
     // ==========================================
     {
         id: 35,
         kategori: "NUMERASI",
         rentangNilai: "0-3",
         tipe: "PG",
-        soal: "Tuliskan teks atau stimulus soal Numerasi nomor 35 di sini.",
+        soal: "Harga setengah kilogram cabe rawit pada hari ini adalah Rp35.000,00.<br><br>Jika hari ini Ibu membeli cabe rawit seberat $2\\frac{1}{4}$ kilogram, total harga yang harus dibayar Ibu adalah ....",
         pilihan: [
-            "Pilihan Jawaban A",
-            "Pilihan Jawaban B",
-            "Pilihan Jawaban C",
-            "Pilihan Jawaban D"
+            "Rp175.000,00",
+            "Rp157.500,00",
+            "Rp140.000,00",
+            "Rp87.500,00"
         ],
-        kunciJawaban: "C"
+        kunciJawaban: "B"
     },
 
     // ==========================================
