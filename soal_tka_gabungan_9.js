@@ -213,7 +213,7 @@ window.daftarSoal = [
     },
 
     // ==========================================
-    // SOAL NOMOR 37 (BENAR-SALAH)
+    // SOAL NOMOR 37 (BENAR-SALAH) - VERSI BERSIH
     // ==========================================
     {
         id: 37,
@@ -226,7 +226,6 @@ window.daftarSoal = [
             "Selama 10 hari pertama, proyek mengalami ketertinggalan jadwal yang setara dengan hasil kerja 5 orang selama 10 hari.",
             "Agar renovasi tetap selesai tepat waktu manajer cukup mempekerjakan kembali 15 pegawai semula tanpa perlu menambah tenaga kerja tambahan."
         ],
-        // Kunci: Benar - Benar - Salah
         kunciJawaban: ["B", "B", "S"]
     },
 
