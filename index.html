@@ -464,7 +464,7 @@
             setTimeout(() => {
                 if (window.daftarSoal && Array.isArray(window.daftarSoal) && window.daftarSoal.length > 0) {
                     window.waktuMulaiUjian = Date.now();
-                    window.durasiTotal = 3600; // 60 Menit
+                    window.durasiTotal = 10800; // 180 Menit
                     window.violationCount = 0;
 
                     mulaiUjian();
@@ -713,68 +713,109 @@
         tampilkanSoal(currentIndex);
     }
 
+    // ==================================================
+    // ✅ FUNGSI HITUNG SKOR (RINCIAN LENGKAP KATEGORI)
+    // ==================================================
+    
     function hitungSkor() {
-        let benar = 0;
-        let totalNilai = 0;
+        let hasil = {
+            totalBenar: 0, totalNilai: 0, maksNilai: 0, totalSoalValid: 0,
+            litBenar: 0, litSkor: 0, litMaks: 0, litTotalSoal: 0,
+            numBenar: 0, numSkor: 0, numMaks: 0, numTotalSoal: 0
+        };
+
         window.daftarSoal.forEach((soal, idx) => {
             if (soal.tipe === 'INFO' || soal.id === 99) return; 
+            hasil.totalSoalValid++;
             
             const nilaiSoal = parseInt(soal.rentangNilai.split('–')[1]) || 0;
-            if(soal.tipe === 'PG') {
-                if(jawabanSiswa[idx] === soal.kunciJawaban) {
-                    benar++;
-                    totalNilai += nilaiSoal;
-                }
+            hasil.maksNilai += nilaiSoal;
+
+            // Membaca kategori soal (pastikan di data soal ada properti "kategori")
+            const kategori = (soal.kategori || '').toUpperCase();
+            if (kategori === 'LITERASI') {
+                hasil.litTotalSoal++;
+                hasil.litMaks += nilaiSoal;
+            } else if (kategori === 'NUMERASI') {
+                hasil.numTotalSoal++;
+                hasil.numMaks += nilaiSoal;
             }
-            if(soal.tipe === 'PGK') {
+
+            // Mengecek jawaban benar/salah
+            let isBenar = false;
+            if(soal.tipe === 'PG') {
+                if(jawabanSiswa[idx] === soal.kunciJawaban) isBenar = true;
+            } else if(soal.tipe === 'PGK') {
                 const jawabanUser = jawabanSiswa[idx] || [];
                 const kunci = soal.kunciJawaban || [];
-                if(JSON.stringify(jawabanUser.sort()) === JSON.stringify(kunci.sort())) {
-                    benar++;
-                    totalNilai += nilaiSoal;
+                if(JSON.stringify(jawabanUser.sort()) === JSON.stringify(kunci.sort())) isBenar = true;
+            }
+
+            // Memasukkan nilai jika jawaban benar
+            if (isBenar) {
+                hasil.totalBenar++;
+                hasil.totalNilai += nilaiSoal;
+                
+                if (kategori === 'LITERASI') {
+                    hasil.litBenar++;
+                    hasil.litSkor += nilaiSoal;
+                } else if (kategori === 'NUMERASI') {
+                    hasil.numBenar++;
+                    hasil.numSkor += nilaiSoal;
                 }
             }
         });
         
-        const totalSoalValid = window.daftarSoal.filter(s => s.tipe !== 'INFO' && s.id !== 99).length;
-        const maksNilai = window.daftarSoal.reduce((sum, s) => {
-            if(s.tipe === 'INFO' || s.id === 99) return sum; 
-            return sum + (parseInt(s.rentangNilai.split('–')[1]) || 0);
-        }, 0);
-        
-        return {benar, totalNilai, maksNilai, totalSoalValid};
+        return hasil;
     }
 
     // ==================================================
-    // ✅ FUNGSI KONFIRMASI SEBELUM SELESAI UJIAN
-    // ==================================================
-    
-    window.konfirmasiSelesai = function() {
-        const yakin = confirm("⚠️ APAKAH KAMU YAKIN INGIN MENGAKHIRI UJIAN?\n\nPastikan semua soal telah dijawab dengan teliti.\nSetelah menekan 'OK', jawaban akan dikirim dan tidak bisa diubah lagi.");
-        
-        if (yakin) {
-            tampilkanHasil(); 
-        }
-    };
-
-    // ==================================================
-    // ✅ TAMPILAN HASIL AKHIR & TOMBOL KEMBALI
+    // ✅ TAMPILAN HASIL AKHIR (DESAIN LEBIH INFORMATIF)
     // ==================================================
 
     function tampilkanHasil() {
-        const hasil = hitungSkor();
+        const h = hitungSkor();
         quizArea.innerHTML = `
             <div class="result-box">
-                <div class="result-score-label">Skor Akhir</div>
-                <div class="result-score-value">${hasil.totalNilai} / ${hasil.maksNilai}</div>
+                <div class="result-score-label">Skor Keseluruhan</div>
+                <div class="result-score-value">${h.totalNilai} <span style="font-size: 20px; color: #94a3b8;">/ ${h.maksNilai}</span></div>
+                
+                <hr style="margin: 20px 0; border: 1px solid #e2e8f0;">
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px; text-align: center;">
+                    
+                    <div style="flex: 1; border-right: 1px solid #e2e8f0; padding: 0 10px;">
+                        <div style="font-size: 13px; font-weight: bold; color: #64748b; text-transform: uppercase;">Literasi</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #0056b3; margin: 5px 0;">
+                            ${h.litSkor} <span style="font-size: 14px; color: #94a3b8;">/ ${h.litMaks}</span>
+                        </div>
+                        <div style="font-size: 13px; color: #16a34a; font-weight: bold;">
+                            ✅ Benar ${h.litBenar} dari ${h.litTotalSoal} soal
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; padding: 0 10px;">
+                        <div style="font-size: 13px; font-weight: bold; color: #64748b; text-transform: uppercase;">Numerasi</div>
+                        <div style="font-size: 28px; font-weight: 900; color: #d97706; margin: 5px 0;">
+                            ${h.numSkor} <span style="font-size: 14px; color: #94a3b8;">/ ${h.numMaks}</span>
+                        </div>
+                        <div style="font-size: 13px; color: #16a34a; font-weight: bold;">
+                            ✅ Benar ${h.numBenar} dari ${h.numTotalSoal} soal
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr style="margin: 20px 0; border: 1px solid #e2e8f0;">
+
                 <div class="result-details">
                     <div class="result-item correct">
-                        <span class="result-val">${hasil.benar}</span>
-                        <span>Benar</span>
+                        <span class="result-val">${h.totalBenar}</span>
+                        <span>Total Benar Keseluruhan</span>
                     </div>
                     <div class="result-item wrong">
-                        <span class="result-val">${hasil.totalSoalValid - hasil.benar}</span> 
-                        <span>Salah</span>
+                        <span class="result-val">${h.totalSoalValid - h.totalBenar}</span> 
+                        <span>Total Salah Keseluruhan</span>
                     </div>
                 </div>
                 
