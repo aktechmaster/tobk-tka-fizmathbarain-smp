@@ -107,9 +107,10 @@ window.daftarSoal = [
     kunciJawaban: ""
   },
 
+  [
   {
     id: 31,
-    kategori: "NUMERASI", // ✅ Kategori ditambahkan
+    kategori: "NUMERASI",
     tipe: "PG",
     tingkatKesulitan: "Sangat Mudah",
     rentangNilai: "4 – 5",
@@ -127,7 +128,7 @@ window.daftarSoal = [
   },
   {
     id: 32,
-    kategori: "NUMERASI", // ✅ Kategori ditambahkan
+    kategori: "NUMERASI",
     tipe: "PGK",
     tingkatKesulitan: "Sedang",
     rentangNilai: "8 – 10",
@@ -144,7 +145,7 @@ window.daftarSoal = [
   },
   {
     id: 33,
-    kategori: "NUMERASI", // ✅ Kategori ditambahkan
+    kategori: "NUMERASI",
     tipe: "PGK",
     tingkatKesulitan: "Lumayan Sulit",
     rentangNilai: "11 – 13",
@@ -162,7 +163,7 @@ window.daftarSoal = [
   },
   {
     id: 34,
-    kategori: "NUMERASI", // ✅ Kategori ditambahkan
+    kategori: "NUMERASI",
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -179,7 +180,7 @@ window.daftarSoal = [
   },
   {
     id: 35,
-    kategori: "NUMERASI", // ✅ Kategori ditambahkan
+    kategori: "NUMERASI",
     tipe: "PG",
     tingkatKesulitan: "Mudah",
     rentangNilai: "6 – 7",
@@ -219,7 +220,7 @@ window.daftarSoal = [
   {
     id: 37,
     kategori: "NUMERASI",
-    tipe: "BS", // KUNCI UTAMA: tipe harus "BS", bukan PGK
+    tipe: "BS",
     tingkatKesulitan: "Sedang",
     rentangNilai: "8 – 10",
     soal: `
@@ -235,7 +236,6 @@ window.daftarSoal = [
         "Selama 10 hari pertama, proyek mengalami ketertinggalan jadwal yang setara dengan hasil kerja 5 orang selama 10 hari.",
         "Agar renovasi tetap selesai tepat waktu manajer cukup mempekerjakan kembali 15 pegawai semula tanpa perlu menambah tenaga kerja tambahan."
     ],
-    // KUNCI JAWABAN: 0 = Benar, 1 = Salah (urutan sesuai pernyataan)
     kunciJawaban: [0, 0, 1]
 },
   {
@@ -322,16 +322,16 @@ window.daftarSoal = [
     id: 41,
     kategori: "NUMERASI",
     tipe: "BS", 
-    tingkatKesulitan: "Sedang", // ✅ DIISI SESUAI STANDAR
+    tingkatKesulitan: "Sedang",
+    rentangNilai: "0 – 10",
     soal: "Tentukan Benar atau Salah untuk setiap pernyataan berikut tentang situasi di lokasi donor darah pada hari tersebut!",
-    rentangNilai: "0 – 10", // ✅ TANDA HUBUNG DIPERBAIKI
-    gambar: null, // ✅ DITAMBAHKAN AGAR LENGKAP
-    pilihan: [ // ✅ NAMA DIUBAH DARI "pernyataan" MENJADI "pilihan"
+    gambar: null,
+    pilihan: [
         "Posko PMI mulai didatangi calon pendonor sejak pukul 10.30.",
         "Ada kemungkinan terdapat 3 orang di ruang tunggu.",
         "Pada pukul 11.00 belum ada pendonor yang memasuki tahap pemulihan."
     ],
-    kunciJawaban: [0, 1, 0] // ✅ ISI DIUBAH JADI ANGKA: 0=Benar, 1=Salah
+    kunciJawaban: [0, 1, 0]
 },
   {
     id: 42,
@@ -396,13 +396,14 @@ window.daftarSoal = [
     <p>• $a$ merupakan bilangan prima.</p>
     <p>• $b$ merupakan bilangan ganjil.</p>
     <p>• $10a + b = 31$.</p>
-    <strong>Pilih semua jawaban benar!</strong>
     `,
     gambar: null,
     pilihan: [
-      "Benar, Benar, Salah"
+      "a merupakan bilangan prima.",
+      "b merupakan bilangan ganjil.",
+      "10a + b = 31."
     ],
-    kunciJawaban: [0]
+    kunciJawaban: [0, 0, 1]
   },
   {
     id: 45,
@@ -461,13 +462,14 @@ window.daftarSoal = [
     <p>• Panjang potongan ke-5 adalah 190 cm.</p>
     <p>• Panjang potongan terakhir adalah 144 cm.</p>
     <p>• Selisih panjang antara potongan ke-2 dan potongan ke-8 adalah 72 cm.</p>
-    <strong>Pilih semua jawaban benar!</strong>
     `,
     gambar: null,
     pilihan: [
-      "Salah, Benar, Benar"
+      "Panjang potongan ke-5 adalah 190 cm.",
+      "Panjang potongan terakhir adalah 144 cm.",
+      "Selisih panjang antara potongan ke-2 dan potongan ke-8 adalah 72 cm."
     ],
-    kunciJawaban: [0]
+    kunciJawaban: [1, 0, 0]
   },
   {
     id: 48,
@@ -485,13 +487,14 @@ window.daftarSoal = [
     <p>• Besar sudut D adalah 50°.</p>
     <p>• Besar sudut C dapat ditentukan dengan menggunakan aturan sudut berpelurus yaitu sebesar 50°.</p>
     <p>• Sudut B dan E sama besar yaitu 130°.</p>
-    <strong>Pilih semua jawaban benar!</strong>
     `,
     gambar: "17.png",
     pilihan: [
-      "Benar, Salah, Benar"
+      "Besar sudut D adalah 50°.",
+      "Besar sudut C dapat ditentukan dengan menggunakan aturan sudut berpelurus yaitu sebesar 50°.",
+      "Sudut B dan E sama besar yaitu 130°."
     ],
-    kunciJawaban: [0]
+    kunciJawaban: [0, 1, 0]
   },
   {
     id: 49,
@@ -507,13 +510,14 @@ window.daftarSoal = [
     <p>• Segitiga ABD dan segitiga CAD saling sebangun.</p>
     <p>• Panjang sisi BC adalah 15 cm.</p>
     <p>• Panjang sisi AC adalah 10 cm.</p>
-    <strong>Pilih semua jawaban benar!</strong>
     `,
     gambar: "19.png",
     pilihan: [
-      "Benar, Benar, Salah"
+      "Segitiga ABD dan segitiga CAD saling sebangun.",
+      "Panjang sisi BC adalah 15 cm.",
+      "Panjang sisi AC adalah 10 cm."
     ],
-    kunciJawaban: [0]
+    kunciJawaban: [0, 0, 1]
   },
   {
     id: 50,
@@ -530,13 +534,14 @@ window.daftarSoal = [
     <p>• Selisih antara luas taman dan luas kolam lebih dari $240\text{ m}^2$.</p>
     <p>• Jika diameter kolam ditambah 1 m, luas kolam bertambah lebih dari $7\text{ m}^2$.</p>
     <p>• Luas daerah yang ditanami rumput kurang dari $240\text{ m}^2$.</p>
-    <strong>Pilih semua jawaban benar!</strong>
     `,
     gambar: "20.png",
     pilihan: [
-      "Benar, Benar, Salah"
+      "Selisih antara luas taman dan luas kolam lebih dari $240\text{ m}^2$.",
+      "Jika diameter kolam ditambah 1 m, luas kolam bertambah lebih dari $7\text{ m}^2$.",
+      "Luas daerah yang ditanami rumput kurang dari $240\text{ m}^2$."
     ],
-    kunciJawaban: [0]
+    kunciJawaban: [0, 0, 1]
   },
   {
     id: 51,
@@ -814,4 +819,5 @@ window.daftarSoal = [
     ],
     kunciJawaban: [0, 1, 2]
   }
+]
   ];
