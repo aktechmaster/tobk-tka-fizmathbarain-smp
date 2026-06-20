@@ -601,7 +601,8 @@
 
         if (soal.tipe === 'INFO') {
             htmlSoal = `
-                <div class="qno">
+                // ✅ Tambahkan margin-top di sini agar tidak tertabrak bar atas
+                <div class="qno" style="margin-top: 70px;">
                     <span>INFORMASI</span>
                 </div>
                 <div class="question">${soal.soal}</div>
@@ -609,7 +610,8 @@
             `;
         } else {
             htmlSoal = `
-                <div class="qno">
+                // ✅ Tambahkan margin-top juga di sini
+                <div class="qno" style="margin-top: 70px;">
                     <span>Soal Nomor ${soal.id}</span>
                 </div>
                 <div class="question">${soal.soal}</div>
