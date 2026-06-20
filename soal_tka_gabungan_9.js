@@ -378,94 +378,95 @@ window.daftarSoal = [
         kunciJawaban: "B"
     },
   // ==========================================
-    // SOAL NOMOR 41 (BENAR-SALAH)
+    // SOAL NOMOR 46 (PG)
     // ==========================================
     {
-        id: 41,
+        id: 46,
+        kategori: "NUMERASI",
+        rentangNilai: "0-20",
+        tipe: "PG",
+        soal: "Perhatikan susunan titik berikut!<br><br><pre style='font-family: monospace; background-color: #f8fafc; padding: 10px; border-radius: 5px; line-height: 1.2;'>Pola ke-1\n•\n\nPola ke-2\n••\n•\n\nPola ke-3\n•••\n••\n•\n\nPola ke-4\n••••\n•••\n••\n•</pre><br>Jika pola tersebut berlanjut, maka jumlah titik pada pola ke-6 adalah ....",
+        pilihan: [
+            "15",
+            "18",
+            "21",
+            "28"
+        ],
+        kunciJawaban: "C"
+    },
+
+    // ==========================================
+    // SOAL NOMOR 47 (BENAR-SALAH)
+    // ==========================================
+    {
+        id: 47,
         kategori: "NUMERASI",
         rentangNilai: "0-20",
         tipe: "BS",
-        soal: "<b>Alur Pelayanan Donor Darah</b><br><br>Kegiatan donor adalah salah satu bentuk aksi kemanusiaan yang sangat bermanfaat untuk diri sendiri dan orang lain. Setetes darah yang disumbangkan dapat memberikan harapan hidup bagi orang lain yang membutuhkan, terutama mereka yang mengalami kecelakaan, setelah menjalani operasi, atau menderita penyakit yang serius. Tak hanya untuk penerima, pendonor juga bisa mendapatkan manfaat. Diantaranya bermanfaat untuk mendeteksi penyakit, meningkatkan produksi sel darah, dan menjaga kesehatan jantung. Oleh karena itu disarankan untuk melakukan donor darah tiga bulan setelah donor darah terakhir.<br><br>Biasanya aksi donor darah difasilitasi oleh Palang Merah Indonesia (PMI). Berikut adalah alur kegiatan donor darah di sebuah posko PMI.<br><br>Posko PMI menambahkan satu tempat lagi untuk proses pengambilan darah dan di tahap pemulihan. Sehingga dapat melayani 2 orang sekaligus pada proses pengambilan darah. Pada hari ini saat pukul 11.30 terlihat sudah ada 2 orang yang sedang berada di ruang pemulihan. Salah seorang baru saja memulai tahap pemulihan dan satu orang lainnya sudah berjalan 15 menit. Adapula 1 orang calon pendonor yang akan melakukan pendaftaran, 1 orang akan melakukan pemeriksaan kesehatan, 1 orang di kursi tunggu, 2 orang sedang proses pengambilan darah.<br><br>Tentukan Benar atau Salah untuk setiap pernyataan berikut tentang situasi di lokasi donor darah pada hari tersebut!",
-        gambar: "9,10,11.png",
+        soal: "Seorang tukang memotong papan kayu dengan berbagai ukuran panjang. Potongan pertama panjangnya 240 cm, dan setiap potongan berikutnya lebih pendek 12 cm dari potongan sebelumnya. Tukang tersebut menghasilkan 9 potongan kayu.<br><br>Tentukan Benar atau Salah untuk setiap pernyataan berikut tentang potongan kayu yang dihasilkan tukang tersebut!",
         pilihan: [
-            "Posko PMI mulai didatangi calon pendonor sejak pukul 10.30.",
-            "Ada kemungkinan terdapat 3 orang di ruang tunggu.",
-            "Pada pukul 11.00 belum ada pendonor yang memasuki tahap pemulihan."
+            "Panjang potongan ke-5 adalah 190 cm.",
+            "Panjang potongan terakhir adalah 144 cm.",
+            "Selisih panjang antara potongan ke-2 dan potongan ke-8 adalah 72 cm."
+        ],
+        // Kunci: Salah - Benar - Benar
+        kunciJawaban: ["S", "B", "B"]
+    },
+
+    // ==========================================
+    // SOAL NOMOR 48 (BENAR-SALAH)
+    // ==========================================
+    {
+        id: 48,
+        kategori: "NUMERASI",
+        rentangNilai: "0-20",
+        tipe: "BS",
+        soal: "Desain jembatan yang tepat sangat penting untuk memperkuat struktur karena menentukan kestabilan, ketahanan, dan keselamatan jembatan dalam menghadapi beban dan kondisi lingkungan. Salah satu contoh desain jembatan tampak pada gambar.<br><br>Bagian rangka jembatan tersebut dapat digambarkan dengan sketsa garis sebagai berikut:<br><br>Diketahui garis L1 sejajar dengan garis L2 dan garis L3 sejajar dengan garis L4.<br><br>Jika besar sudut A adalah 50°, tentukan Benar atau Salah untuk setiap pernyataan berikut!",
+        gambar: "17.png",
+        pilihan: [
+            "Besar sudut D adalah 50°.",
+            "Besar sudut C dapat ditentukan dengan menggunakan aturan sudut berpelurus yaitu sebesar 50°.",
+            "Sudut B dan E sama besar yaitu 130°."
         ],
         // Kunci: Benar - Salah - Benar
         kunciJawaban: ["B", "S", "B"]
     },
 
     // ==========================================
-    // SOAL NOMOR 42 (PG)
+    // SOAL NOMOR 49 (BENAR-SALAH)
     // ==========================================
     {
-        id: 42,
-        kategori: "NUMERASI",
-        rentangNilai: "0-20",
-        tipe: "PG",
-        soal: "Perhatikan bentuk aljabar berikut.<br><br>$$\n(x + 2)(3 + y) + (x + 2)(1 - y)\n$$<br>Bentuk sederhana dari bentuk aljabar tersebut adalah ....",
-        pilihan: [
-            "4(x + 2)",
-            "x + 2 + 4y",
-            "4(x + 8)",
-            "4x + 2y"
-        ],
-        kunciJawaban: "A"
-    },
-
-    // ==========================================
-    // SOAL NOMOR 43 (PGK)
-    // ==========================================
-    {
-        id: 43,
-        kategori: "NUMERASI",
-        rentangNilai: "0-20",
-        tipe: "PGK",
-        soal: "Sebuah jasa pengantaran barang mengenakan biaya sebagai berikut:<br>• Biaya tetap pemesanan sebesar Rp12.000,00.<br>• Biaya pengantaran Rp4.000,00 per kilometer.<br><br>Seorang pelanggan memiliki anggaran tidak lebih dari Rp40.000,00 untuk satu kali pemesanan jasa antar.<br><br>Berikut ini, manakah pernyataan yang benar tentang permasalahan tersebut?<br>Pilih semua jawaban benar! Jawaban benar lebih dari satu.",
-        pilihan: [
-            "Apabila $x$ menyatakan jarak pengantaran (dalam km), maka permasalahan dapat dimodelkan dengan $4.000x + 12.000 \\le 40.000$.",
-            "Jarak pengantaran maksimum yang masih dapat dipilih pelanggan adalah 7 km.",
-            "Jika jarak pengantaran 8 km, maka biaya total melebihi anggaran.",
-            "Penambahan jarak antar 1 km akan menambah biaya sebesar Rp16.000,00."
-        ],
-        // Kunci: Pernyataan 1, 2, dan 3 (Indeks 0, 1, dan 2)
-        kunciJawaban: [0, 1, 2]
-    },
-
-    // ==========================================
-    // SOAL NOMOR 44 (BENAR-SALAH)
-    // ==========================================
-    {
-        id: 44,
+        id: 49,
         kategori: "NUMERASI",
         rentangNilai: "0-20",
         tipe: "BS",
-        soal: "Misalkan $a$ dan $b$ merupakan dua bilangan real sehingga sistem persamaan linear (SPL)<br><br>$$\n\\begin{cases} \n2x + ay = 4, \\\\ \nbx - 2y = -1 \n\\end{cases}\n$$<br>mempunyai solusi $(x, y) = (5, -2)$.<br><br>Tentukan Benar atau Salah untuk setiap pernyataan berikut terkait dengan nilai $a$ dan $b$!",
+        soal: "Perhatikan gambar jembatan/bangun berikut ini!<br><br>Tentukan Benar atau Salah untuk setiap pernyataan berikut tentang bangun segitiga pada gambar tersebut!",
+        gambar: "19.png",
         pilihan: [
-            "$a$ merupakan bilangan prima.",
-            "$b$ merupakan bilangan ganjil.",
-            "$10a + b = 31$."
+            "Segitiga ABD dan segitiga CAD saling sebangun.",
+            "Panjang sisi BC adalah 15 cm.",
+            "Panjang sisi AC adalah 10 cm."
         ],
         // Kunci: Benar - Benar - Salah
         kunciJawaban: ["B", "B", "S"]
     },
 
     // ==========================================
-    // SOAL NOMOR 45 (PG)
+    // SOAL NOMOR 50 (BENAR-SALAH)
     // ==========================================
     {
-        id: 45,
+        id: 50,
         kategori: "NUMERASI",
         rentangNilai: "0-20",
-        tipe: "PG",
-        soal: "Sebuah pabrik memproduksi batang logam. Fungsi $f(x) = 5x + 10$ menyatakan berat total (kg) untuk $x$ batang logam.<br><br>Jika pabrik memproduksi 7 batang logam, berapa total berat logam yang dihasilkan?",
+        tipe: "BS",
+        soal: "Di sebuah taman kota berbentuk persegi panjang, terdapat sebuah kolam berbentuk lingkaran yang terletak tepat di tengah-tengah taman, seperti terlihat pada gambar berikut.<br><br>Area taman lainnya (area hijau pada gambar) akan ditanami rumput.<br><br>Tentukan Benar atau Salah untuk setiap pernyataan berikut tentang luas area kolam dan area yang ditanami rumput! (Gunakan $\\pi = 22/7$)",
+        gambar: "20.png",
         pilihan: [
-            "35 kg.",
-            "45 kg.",
-            "50 kg.",
-            "70 kg."
+            "Selisih antara luas taman dan luas kolam lebih dari $240\\text{ m}^2$.",
+            "Jika diameter kolam ditambah 1 m, luas kolam bertambah lebih dari $7\\text{ m}^2$.",
+            "Luas daerah yang ditanami rumput kurang dari $240\\text{ m}^2$."
         ],
-        kunciJawaban: "B"
+        // Kunci: Benar - Benar - Salah
+        kunciJawaban: ["B", "B", "S"]
     }
 ];
