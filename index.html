@@ -755,7 +755,7 @@
     }
 
     // ==================================================
-    // ✅ FUNGSI HITUNG SKOR (RINCIAN LENGKAP KATEGORI)
+    // ✅ FUNGSI HITUNG SKOR (VERSI ANTI-CRASH)
     // ==================================================
     
     function hitungSkor() {
@@ -769,10 +769,17 @@
             if (soal.tipe === 'INFO' || soal.id === 99) return; 
             hasil.totalSoalValid++;
             
-            const nilaiSoal = parseInt(soal.rentangNilai.split('–')[1]) || 0;
+            // PELINDUNG 1: Mencegah crash jika rentangNilai lupa ditulis di soal.js
+            let nilaiSoal = 0;
+            if (soal.rentangNilai && typeof soal.rentangNilai === 'string') {
+                // Membelah pakai regex agar mau baca tanda minus (-) maupun en-dash (–)
+                const pecah = soal.rentangNilai.split(/[-–]/); 
+                nilaiSoal = parseInt(pecah[1]) || 0;
+            }
+            
             hasil.maksNilai += nilaiSoal;
 
-            // Membaca kategori soal (pastikan di data soal ada properti "kategori")
+            // Membaca kategori soal
             const kategori = (soal.kategori || '').toUpperCase();
             if (kategori === 'LITERASI') {
                 hasil.litTotalSoal++;
@@ -784,21 +791,30 @@
 
             // Mengecek jawaban benar/salah
             let isBenar = false;
+            
             if(soal.tipe === 'PG') {
                 if(jawabanSiswa[idx] === soal.kunciJawaban) isBenar = true;
-            } else if(soal.tipe === 'PGK') {
-                const jawabanUser = jawabanSiswa[idx] || [];
-                const kunci = soal.kunciJawaban || [];
-                if(JSON.stringify(jawabanUser.sort()) === JSON.stringify(kunci.sort())) isBenar = true;
+            } 
+            else if(soal.tipe === 'PGK') {
+                // PELINDUNG 2: Memastikan jawabanUser adalah Array sebelum di-sort
+                const jawabanUser = Array.isArray(jawabanSiswa[idx]) ? jawabanSiswa[idx] : [];
+                const kunci = Array.isArray(soal.kunciJawaban) ? soal.kunciJawaban : [];
+                if(JSON.stringify(jawabanUser.slice().sort()) === JSON.stringify(kunci.slice().sort())) {
+                    isBenar = true;
+                }
             } 
             // ==================================================
-            // ✅ TAMBAHAN BARU: SKOR UNTUK TIPE BS
+            // ✅ SKOR UNTUK TIPE BS
             // ==================================================
             else if(soal.tipe === 'BS') {
-                const jawabanUser = jawabanSiswa[idx] || [];
-                const kunci = soal.kunciJawaban || [];
-                // Urutan pada BS sangat penting, jadi tidak pakai sort()
-                if(JSON.stringify(jawabanUser) === JSON.stringify(kunci)) {
+                // PELINDUNG 3: Memastikan jawaban berupa Array
+                const jawabanUser = Array.isArray(jawabanSiswa[idx]) ? jawabanSiswa[idx] : [];
+                const kunci = Array.isArray(soal.kunciJawaban) ? soal.kunciJawaban : [];
+                
+                // Menghapus nilai kosong (null) di belakang array jika siswa tidak menjawab pernyataan terakhir
+                const cleanUser = Array.from(jawabanUser, item => item || null);
+                
+                if(JSON.stringify(cleanUser) === JSON.stringify(kunci)) {
                     isBenar = true;
                 }
             }
