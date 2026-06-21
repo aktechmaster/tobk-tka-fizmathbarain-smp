@@ -865,7 +865,7 @@ window.daftarSoal = [
         rentangNilai: "0-4",
         tipe: "BS",
         soal: "Desain jembatan yang tepat sangat penting untuk memperkuat struktur karena menentukan kestabilan, ketahanan, dan keselamatan jembatan dalam menghadapi beban dan kondisi lingkungan. Salah satu contoh desain jembatan tampak pada gambar.<br><br>Bagian rangka jembatan tersebut dapat digambarkan dengan sketsa garis sebagai berikut:<br><br>Diketahui garis L1 sejajar dengan garis L2 dan garis L3 sejajar dengan garis L4.<br><br>Jika besar sudut A adalah 50°, tentukan Benar atau Salah untuk setiap pernyataan berikut!",
-        gambar: "images_num_9/17.jpg",
+        gambar: "images_num_9/18.jpg",
         pilihan: [
             "Besar sudut D adalah 50°.",
             "Besar sudut C dapat ditentukan dengan menggunakan aturan sudut berpelurus yaitu sebesar 50°.",
@@ -1032,8 +1032,8 @@ window.daftarSoal = [
         kategori: "NUMERASI",
         rentangNilai: "0-4",
         tipe: "PGK",
-        soal: "Sebuah koperasi sekolah ingin mengevaluasi penjualan alat tulis selama 5 bulan terakhir. Berikut disajikan data jumlah pengunjung koperasi sekolah selama 5 bulan dan data persentase alat tulis yang terjual.<br><br>Berdasarkan kedua data tersebut, tentukan manakah pernyataan yang benar untuk setiap pernyataan berikut?<br>Pilih semua jawaban benar! Jawaban benar lebih dari satu.",
-        gambar: ["images_num_9/27.jpg", "27.1.jpg"],
+        soal: Sebuah koperasi sekolah ingin mengevaluasi penjualan alat tulis selama 5 bulan terakhir. Berikut disajikan data jumlah pengunjung koperasi sekolah selama 5 bulan dan data persentase alat tulis yang terjual.<br><br><div style='display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;'><img src='images_num_9/27.jpg' style='max-width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 5px;'><img src='images_num_9/27.1.jpg' style='max-width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 5px;'></div><br>Berdasarkan kedua data tersebut, tentukan manakah pernyataan yang benar untuk setiap pernyataan berikut?<br>Pilih semua jawaban benar! Jawaban benar lebih dari satu.",
+        gambar:
         pilihan: [
             "Peningkatan jumlah pengunjung paling signifikan (paling besar) terjadi pada periode bulan April ke Mei.",
             "Jika setiap pengunjung di bulan Mei membeli satu alat tulis, maka jumlah pulpen yang terjual adalah 64 buah.",
