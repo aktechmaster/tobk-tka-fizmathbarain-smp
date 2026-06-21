@@ -413,7 +413,7 @@ window.daftarSoal = [
     kategori: "LITERASI",
     rentangNilai: "0-3",
     tipe: "BS",
-    soal: "<b>Setelah membaca puisi tersebut, tiga murid berpendapat:</b><br><br>Fira : Puisi ini terasa pilu karena tokoh Aku mengunjungi suatu tempat dalam kondisi yang penuh kesulitan dan kerinduan.<br><br>Rini : Aku rasa puisi ini lebih menggambarkan kebahagiaan batin karena akhirnya tokoh aku merasakan kedamaian spiritual.<br><br>Indra : Aku pikir puisi ini menggambarkan kebesaran Tuhan yang menciptakan alam meskipun sedang dilanda badai.<br><br><b>Pendapat siapa yang tepat untuk menggambarkan suasana kerinduan yang mendalam yang muncul setelah membaca puisi tersebut? Tentukan Benar atau Salah untuk setiap pernyataan berikut!</b><br><br><table><thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead><tbody><tr><td>i. Pendapat Fira tidak sesuai dengan puisi karena puisi ini tidak hanya menyoroti kesulitan, tetapi juga kerinduan yang mendalam.</td><td></td><td></td></tr><tr><td>ii. Pendapat Rini tidak tepat karena puisi ini lebih berfokus pada pengalaman spiritual dan kerinduan, bukan kebahagiaan.</td><td></td><td></td></tr><tr><td>iii. Pendapat Indra tidak tepat karena puisi ini tidak menggambarkan kebesaran alam secara langsung, tetapi lebih pada pengalaman batin tokoh Aku.</td><td></td><td></td></tr></tbody></table>",
+    soal: "<b>Setelah membaca puisi tersebut, tiga murid berpendapat:</b><br><br>Fira : Puisi ini terasa pilu karena tokoh Aku mengunjungi suatu tempat dalam kondisi yang penuh kesulitan dan kerinduan.<br><br>Rini : Aku rasa puisi ini lebih menggambarkan kebahagiaan batin karena akhirnya tokoh aku merasakan kedamaian spiritual.<br><br>Indra : Aku pikir puisi ini menggambarkan kebesaran Tuhan yang menciptakan alam meskipun sedang dilanda badai.<br><br><b>Pendapat siapa yang tepat untuk menggambarkan suasana kerinduan yang mendalam yang muncul setelah membaca puisi tersebut? Tentukan Benar atau Salah untuk setiap pernyataan berikut!",
     pilihan: [
         "Pendapat Fira tidak sesuai dengan puisi karena puisi ini tidak hanya menyoroti kesulitan, tetapi juga kerinduan yang mendalam.",
         "Pendapat Rini tidak tepat karena puisi ini lebih berfokus pada pengalaman spiritual dan kerinduan, bukan kebahagiaan.",
@@ -448,7 +448,7 @@ window.daftarSoal = [
     kategori: "LITERASI",
     rentangNilai: "0-3",
     tipe: "PG",
-    soal: "<b>Berdasarkan puisi pada soal nomor 25, apa yang digambarkan “sekelebat bayangan” yang dilihat tokoh Aku dari kejauhan?</b>",
+    soal: "<b>Bacalah teks berikut untuk menjawab soal nomor 25—27!</b><br><br><b>Mengunjungi Krapyak</b><br><i>Umam Makki Mahfudz</i><br><br>Dari kejauhan <br>kulihat sekelebat bayangan <br>seorang zahid memanggul ayat <br>sepanjang hayat <br><br>“Pada halaman berapakah rapalmu terjeda? <br>Oleh lembar yang manakah batinmu terluka?” <br><br>Sesekali aku mengaji <br>seringkali hanya mampu mengeja <br>tegak alifmu di segala arah <br><br>Baris-baris hijaiah membeku <br>kembang kempis nawaitu <br>lebur digempur waktu<br><br><b>Aapa yang digambarkan “sekelebat bayangan” yang dilihat tokoh Aku dari kejauhan?</b>",
     pilihan: [
         "Seorang Zahid yang membawa sepotong kayu.",
         "Seorang Zahid yang membawa kitab suci.",
@@ -466,7 +466,7 @@ window.daftarSoal = [
     kategori: "LITERASI",
     rentangNilai: "0-3",
     tipe: "PG",
-    soal: "<b>Berdasarkan puisi pada soal nomor 25, makna kiasan dari “kembang kempis nawaitu” adalah ....</b>",
+    soal: "<b>Bacalah teks berikut untuk menjawab soal nomor 25—27!</b><br><br><b>Mengunjungi Krapyak</b><br><i>Umam Makki Mahfudz</i><br><br>Dari kejauhan <br>kulihat sekelebat bayangan <br>seorang zahid memanggul ayat <br>sepanjang hayat <br><br>“Pada halaman berapakah rapalmu terjeda? <br>Oleh lembar yang manakah batinmu terluka?” <br><br>Sesekali aku mengaji <br>seringkali hanya mampu mengeja <br>tegak alifmu di segala arah <br><br>Baris-baris hijaiah membeku <br>kembang kempis nawaitu <br>lebur digempur waktu<br><br><b>Makna kiasan dari “kembang kempis nawaitu” adalah ....</b>",
     pilihan: [
         "niat beribadah yang tulus",
         "niat beribadah yang mudah goyah",
