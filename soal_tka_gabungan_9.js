@@ -249,6 +249,22 @@ window.daftarSoal = [
         ],
         kunciJawaban: "D"
     },
+          // ==========================================
+          // SOAL NOMOR 15 (BS) - Tingkat Kesulitan: Sedang
+          // ==========================================
+          {
+              id: 15,
+              kategori: "LITERASI",
+              rentangNilai: "0-3",
+              tipe: "BS",
+              soal: "<b>Tentukan Benar atau Salah pernyataan berikut mengenai watak tokoh Ayah dalam cerita!</b><br><br><table><thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead><tbody><tr><td>i. Ayah adalah sosok yang bijaksana dan memiliki intuisi yang tajam.</td><td></td><td></td></tr><tr><td>ii. Ayah adalah sosok yang sangat menyayangi keluarganya.</td><td></td><td></td></tr><tr><td>iii. Ayah adalah sosok yang pandai dalam bernegosiasi dengan pembeli.</td><td></td><td></td></tr></tbody></table>",
+              pilihan: [
+                  "Ayah adalah sosok yang bijaksana dan memiliki intuisi yang tajam.",
+                  "Ayah adalah sosok yang sangat menyayangi keluarganya.",
+                  "Ayah adalah sosok yang pandai dalam bernegosiasi dengan pembeli."
+              ],
+              kunciJawaban: ["B", "B", "S"]
+          },
               // ==========================================
     // SOAL NOMOR 16 (PG) - Tingkat Kesulitan: Sedang
     // ==========================================
@@ -337,6 +353,58 @@ window.daftarSoal = [
         ],
         kunciJawaban: [0, 3]
     },
+          // ==========================================
+// SOAL NOMOR 21 (BS) - Tingkat Kesulitan: Sedang
+// ==========================================
+{
+    id: 21,
+    kategori: "LITERASI",
+    rentangNilai: "0-3",
+    tipe: "BS",
+    soal: "Bacalah kedua puisi berikut dengan saksama!<br><br><b>Puisi I<br>Keterampilan Mendengar</b><br><i>Hasan Al Banna</i><br><br>bunga-bunga plastik terselip di daun telinga<br>telinga yang tidak menyediakan pintu dan jendela<br>tidak menyodorkan rindu dan beranda<br>semata senpi sepi<br>yang menyendera bunyi dengan menyendiri<br><br>suara-suara adalah frekuensi yang disuntik mimpi<br>mimpi yang mengajarkan bisu yang baik dan benar<br>yang buta intonasi dan artikulasi<br>sebatas sirene siluman<br>yang mahir menghilangkan resep-resep siuman<br><br><b>Puisi II<br>Keterampilan Berbicara</b><br><i>Hasan Al Banna</i><br><br>sejak kapan kepala orang-orang terdiri atas mulut?<br>cuma mulut<br>yang melindungi hutan lidah<br>lidah lindung yang menyimpan miliaran binatang<br>binatang bias<br>yang mengandung bisa<br>bisa basi<br><br>sejak kapan mulut orang-orang tak punya kepala?<br>tanpa kepala<br>yang merawat telaga hati<br>hati pati<br>yang disuling jemari ibu<br>ibu iba<br>yang mendoakan anak-anaknya<br>anak tunak<br><br><b>Tentukan Benar atau Salah pernyataan berikut yang menjelaskan makna kiasan dalam puisi II!</b><br><br><table><thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead><tbody><tr><td>i. Ungkapan “kepala orang-orang terdiri atas mulut” bermakna bahwa manusia terlalu banyak berbicara tanpa berpikir.</td><td></td><td></td></tr><tr><td>ii. Frasa “lidah lindung yang menyimpan miliaran binatang” menggambarkan perkataan yang jujur dan tulus.</td><td></td><td></td></tr><tr><td>iii. Pernyataan “mulut orang-orang tak punya kepala” bermakna bahwa perkataan sering kali tidak sejalan dengan apa yang dirasakan.</td><td></td><td></td></tr></tbody></table>",
+    pilihan: [
+        "Ungkapan “kepala orang-orang terdiri atas mulut” bermakna bahwa manusia terlalu banyak berbicara tanpa berpikir.",
+        "Frasa “lidah lindung yang menyimpan miliaran binatang” menggambarkan perkataan yang jujur dan tulus.",
+        "Pernyataan “mulut orang-orang tak punya kepala” bermakna bahwa perkataan sering kali tidak sejalan dengan apa yang dirasakan."
+    ],
+    kunciJawaban: ["B", "S", "B"]
+},
+
+// ==========================================
+// SOAL NOMOR 22 (PG) - Tingkat Kesulitan: Mudah
+// ==========================================
+{
+    id: 22,
+    kategori: "LITERASI",
+    rentangNilai: "0-3",
+    tipe: "PG",
+    soal: "<b>Bacalah teks berikut, lalu kerjakan soal nomor 22—24!</b><br><br><b>Pada Suatu Musim di Situbondo</b><br><i>Umam Makki Mahfudz</i><br><br>Aku mengunjungimu<br>ketika lubang sumur menghiasi jalanan <br>saat sungai bergolak merindu daratan <br>kala pohon-pohon asam rebah ke bahu jalan <br>dan badai mengganas menyapu kepongahan <br><br>Aku melihatmu <br>dengan mata seorang bocah merindukan peluk ibu <br>dengan hati murid gamang di hadapan waskita guru <br>dengan deras darah yang setia mengaliri pembuluh<br><br>Aku membacamu <br>lewat kembang-kembang selawat <br>mekar di setiap altar <br>melalui sulur-sulur munajat <br>ke dasar batin jauh menjalar <br><br>Kuharap kau pun berkenan <br>mengunjungi, <br>melihat, dan <br>membacaku <br>sebagai sekerat daging <br>yang lahir dari rahimmu <br><br><b>Berdasarkan bait pertama, bagaimana kondisi Situbondo saat tokoh Aku mengunjunginya?</b>",
+    pilihan: [
+        "Terjadi badai angin kencang dan cuaca buruk.",
+        "Tenang dan damai dengan pemandangan indah.",
+        "Sedang dilanda musim kemarau yang sangat panjang.",
+        "Berada di pinggiran kota yang sunyi dan sepi sehingga keadaannya tampak kacau balau."
+    ],
+    kunciJawaban: "A"
+},
+
+// ==========================================
+// SOAL NOMOR 23 (PG) - Tingkat Kesulitan: Sedang
+// ==========================================
+{
+    id: 23,
+    kategori: "LITERASI",
+    rentangNilai: "0-3",
+    tipe: "PG",
+    soal: "<b>Bacalah teks berikut, lalu kerjakan soal nomor 22—24!</b><br><br><b>Pada Suatu Musim di Situbondo</b><br><i>Umam Makki Mahfudz</i><br><br>Aku mengunjungimu<br>ketika lubang sumur menghiasi jalanan <br>saat sungai bergolak merindu daratan <br>kala pohon-pohon asam rebah ke bahu jalan <br>dan badai mengganas menyapu kepongahan <br><br>Aku melihatmu <br>dengan mata seorang bocah merindukan peluk ibu <br>dengan hati murid gamang di hadapan waskita guru <br>dengan deras darah yang setia mengaliri pembuluh<br><br>Aku membacamu <br>lewat kembang-kembang selawat <br>mekar di setiap altar <br>melalui sulur-sulur munajat <br>ke dasar batin jauh menjalar <br><br>Kuharap kau pun berkenan <br>mengunjungi, <br>melihat, dan <br>membacaku <br>sebagai sekerat daging <br>yang lahir dari rahimmu <br><br><b>Berdasarkan teks puisi di atas, makna dari frasa “dengan hati murid gamang di hadapan waskita guru” adalah ...</b>",
+    pilihan: [
+        "Perasaan bingung dan ragu di hadapan guru yang bijaksana.",
+        "Perasaan rendah diri karena tidak memiliki ilmu seperti seorang guru.",
+        "Perasaan takut dan tidak berdaya di hadapan guru yang menyeramkan.",
+        "Perasaan was-was dan tidak percaya diri di hadapan guru yang beribawa."
+    ],
+    kunciJawaban: "A"
+}
 
 
   {
