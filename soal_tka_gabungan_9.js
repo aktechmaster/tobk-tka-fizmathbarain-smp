@@ -404,7 +404,7 @@ window.daftarSoal = [
         "Perasaan was-was dan tidak percaya diri di hadapan guru yang beribawa."
     ],
     kunciJawaban: "A"
-}
+},
 
 
   {
