@@ -177,7 +177,7 @@ window.daftarSoal = [
             "Ia tidak peduli dengan ajakan ibunya."
         ],
         kunciJawaban: "A"
-    }
+    },
 
   {
     id: 99,
