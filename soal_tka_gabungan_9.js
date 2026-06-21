@@ -179,6 +179,77 @@ window.daftarSoal = [
         kunciJawaban: "A"
     },
 
+              // ==========================================
+    // SOAL NOMOR 11 (PGK) - Tingkat Kesulitan: Sulit
+    // ==========================================
+    {
+        id: 11,
+        kategori: "LITERASI",
+        rentangNilai: "0-4",
+        tipe: "PGK",
+        soal: "Bacalah kembali teks berjudul \"Ibu, Aku Hanya Ingin Mudik\" pada soal nomor 9—10!<br><br>Kutipan yang menunjukkan tokoh Aryo merasa marah kepada ibunya ditunjukkan oleh ...<br><br>Pilihlah jawaban benar! Jawaban benar lebih dari satu.",
+        pilihan: [
+            "“Kedua cuping hidungmu mengembang sesekali.”",
+            "“Kau mengulurkan tanganmu mencium punggung tangan ibumu yang baru pulang.”",
+            "“Kau dorong kursi ke belakang dan kembali kau berulah meninggalkan meja makan.”",
+            "“Kau tak menjawab, sejenak kau menatap barang bawaan ibumu yang mulai dikeluarkan dari kantong kresek.”"
+        ],
+        kunciJawaban: [2, 3]
+    },
+
+    // ==========================================
+    // SOAL NOMOR 12 (BS) - Tingkat Kesulitan: Sedang
+    // ==========================================
+    {
+        id: 12,
+        kategori: "LITERASI",
+        rentangNilai: "0-3",
+        tipe: "BS",
+        soal: "Bacalah kembali teks berjudul \"Ibu, Aku Hanya Ingin Mudik\" pada soal nomor 9—10!<br><br>Tentukan Benar atau Salah pernyataan berikut mengenai isi cerita!",
+        pilihan: [
+            "Aryo ingin pulang kampung ke Surabaya karena ingin bertemu dengan neneknya.",
+            "Ibu membuatkan rujak cingur lengkap dengan pisang batu agar Aryo senang dan mau makan.",
+            "Keinginan Aryo untuk mudik tidak terwujud karena kondisi ekonomi keluarga yang belum pulih pasca pandemi."
+        ],
+        kunciJawaban: ["B", "S", "B"]
+    },
+
+    // ==========================================
+    // SOAL NOMOR 13 (PG) - Tingkat Kesulitan: Mudah
+    // ==========================================
+    {
+        id: 13,
+        kategori: "LITERASI",
+        rentangNilai: "0-3",
+        tipe: "PG",
+        soal: "Bacalah teks berikut dengan saksama!<br><br>Ayahku kembali setelah beberapa hari. Beliau membawa sepotong kayu. Kata ayahku, kayu itu dari kapal bahtera Nabi Nuh. Aku terkadang tidak mengerti dengan apa yang dikatakan ayahku, tapi aku tak pernah, tepatnya tak berani, membantahnya. Kadang aku baru mengerti setelah apa yang dikatakan ayahku terjadi.<br><br>Ada yang menyebut kayu kapal Nabi Nuh itu adalah kayu gofir atau gopherwood. Belakangan ada pula peneliti yang mengatakan kalau kayu kapal Nabi Nuh itu adalah kayu jati yang berasal dari Nusantara, tepatnya di tanah Jawa. Mirip seperti dugaan kalau Atlantis itu sebenarnya ada di sekitaran Laut Jawa.<br><br>Sepotong kayu itu tampak antik, tapi kokoh, cukup untuk diukir menjadi sebuah nisan. Seperti kayu-kayu nisan yang sebelumnya diukir ayahku, bau harum mistis kembali tercium.<br><br>Esoknya datang lagi seseorang menemui ayahku. Tentu pemesan nisan sebagaimana orang-orang yang sebelumnya datang. Hanya saja, aku mencium semerbak harum mistis dari orang itu sama dengan yang keluar dari sepotong kayu yang dibawa ayah kemarin. Bahkan bau wangi itu sudah terasa beberapa saat sebelum orang itu datang. Jangan-jangan dia tau ayahku membawa sepotong kayu itu, yang cocok dengan dirinya, yang sama bau wanginya.<br><br>Ayahku menyambutnya lalu mempersilakan masuk ke ruang kerjanya. Mereka berbincang di dalam, tapi aku tak bisa mendengar apa isinya. Terkadang malah terasa senyap dan mencekam. Sekitar sembilan menit kemudian mereka keluar, bersalaman dan berpelukan. Aku melihat ayahku tersenyum saat orang itu pergi.<br><br>Ayahku memanggil. “Yang tadi datang meminta ayah untuk menyelesaikan nisan kayu ini dalam tiga hari.” Lanjutnya, “Kamu tahu, ayah tidak suka menawar. Ayah akan menyelesaikannya.”<br><br>Aku bisa merasakan suaranya agak bergetar, tanpa membuat wibawanya jadi pudar. Ayahku juga berpesan untuk menyedekahkan separuh dari isi amplop yang aku terima sebelumnya. Aku malah belum sempat melaporkan perihal amplop itu kepada ayah.<br><br>“Tiga hari dari sekarang, ambillah, setelah subuh,” kata ayahku.<br><br>Waktunya sudah tiba. Sesuai pesan ayahku, setelah subuh aku ketuk ruang kerjanya. Tidak ada jawaban dari dalam. Aku masuk, melihat ayah seperti tertidur di atas sajadah biru kesayangannya. Aku berusaha membangunkannya, tapi ayah tak bergerak. Di sampingnya tergeletak kayu nisan yang sangat indah beserta harum mistis itu dan cahaya yang samar-samar terpencar dengan lembut. Terukir nama ayah sendiri, lengkap dengan tanggal lahir dan tanggal hari ini di bawahnya.<br><br>Tak terasa air mataku meleleh, seperti lelehan lilin di bawah pijar api, dan membasahi pipi. Aku menyekanya. Aku mengerti, lalu tersenyum seperti wajah ayah yang terlihat tersenyum. Ayah tidak menawar waktunya. Sepertinya ayah mengatakan kalau ini sukacita, bukan dukacita.<br><br>Aku teringat orang yang datang itu. Ternyata bukan pemesan nisan seperti yang aku kira sebelumnya. Mungkinkah ia Izrail?<br><br><b>Apa yang dilakukan Ayah pada sepotong kayu yang ia bawa pulang?</b>",
+        pilihan: [
+            "Disimpan menjadi benda antik.",
+            "Diukir menjadi nisan yang indah.",
+            "Diberikan kepada orang misterius yang datang.",
+            "Dijual dengan harga yang mahal kepada kolektor."
+        ],
+        kunciJawaban: "B"
+    },
+
+    // ==========================================
+    // SOAL NOMOR 14 (PG) - Tingkat Kesulitan: Sedang
+    // ==========================================
+    {
+        id: 14,
+        kategori: "LITERASI",
+        rentangNilai: "0-3",
+        tipe: "PG",
+        soal: "<b>Maksud dari kutipan “Aku mengerti, lalu tersenyum seperti wajah Ayah yang terlihat tersenyum.” adalah ...</b>",
+        pilihan: [
+            "Tokoh Aku merasa senang karena Ayahnya meninggal dalam keadaan tersenyum.",
+            "Tokoh Aku merasa lega karena Ayahnya tidak menawar waktu hidupnya.",
+            "Tokoh Aku mencoba tersenyum untuk menutupi kesedihannya atas kepergian Ayahnya.",
+            "Tokoh Aku memahami bahwa kematian Ayahnya bukanlah kesedihan, melainkan sukacita."
+        ],
+        kunciJawaban: "D"
+    },
+
   {
     id: 99,
     kategori: "-", // Info tidak masuk perhitungan
