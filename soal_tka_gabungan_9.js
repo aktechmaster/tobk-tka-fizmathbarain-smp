@@ -80,7 +80,7 @@ window.daftarSoal = [
         kategori: "LITERASI",
         rentangNilai: "0-3",
         tipe: "PG",
-        soal: "Hal yang dilakukan tokoh Aku saat membayangkan berada di makam ibunya adalah ....",
+        soal: "Tiga siswa mendiskusikan kesan mereka terhadap dua foto yang diceritakan oleh tokoh Aku:<br><br>Banu : Wah, foto-foto itu membuktikan bahwa di tengah kesulitan pun, masih ada kepedulian dan kekuatan yang luar biasa di dalam manusia.<br>Wina : Aku rasa, foto itu hanya menarik karena harganya mahal dan akan menggegerkan balai lelang internasional.<br>Fajar : Cerita di balik kedua foto itu justru lebih kuat dari foto itu sendiri. Ada pesan kemanusiaan yang mendalam.<br><br>Hal yang dilakukan tokoh Aku saat membayangkan berada di makam ibunya adalah ....",
         pilihan: [
             "membacakan doa dan mengenang kebersamaan dengan sang ibu",
             "berdiri menghadap langit, memejamkan mata, dan menghirup napas dalam-dalam",
@@ -98,7 +98,7 @@ window.daftarSoal = [
         kategori: "LITERASI",
         rentangNilai: "0-3",
         tipe: "PG",
-        soal: "Apa perasaan yang paling dominan dirasakan tokoh Aku di akhir cerita?",
+        soal: "Tiga siswa mendiskusikan kesan mereka terhadap dua foto yang diceritakan oleh tokoh Aku:<br><br>Banu : Wah, foto-foto itu membuktikan bahwa di tengah kesulitan pun, masih ada kepedulian dan kekuatan yang luar biasa di dalam manusia.<br>Wina : Aku rasa, foto itu hanya menarik karena harganya mahal dan akan menggegerkan balai lelang internasional.<br>Fajar : Cerita di balik kedua foto itu justru lebih kuat dari foto itu sendiri. Ada pesan kemanusiaan yang mendalam.<br><br>Apa perasaan yang paling dominan dirasakan tokoh Aku di akhir cerita?",
         pilihan: [
             "Senang karena disambut oleh Yu Tinah di rumah.",
             "Tenang dan damai karena sudah sampai di rumah.",
@@ -116,7 +116,7 @@ window.daftarSoal = [
         kategori: "LITERASI",
         rentangNilai: "0-4",
         tipe: "PGK",
-        soal: "Berdasarkan teks, manakah pernyataan yang menggambarkan kondisi fisik dan mental tokoh Aku selama perjalanan?<br><br>Pilihlah jawaban benar! Jawaban benar lebih dari satu.",
+        soal: "Tiga siswa mendiskusikan kesan mereka terhadap dua foto yang diceritakan oleh tokoh Aku:<br><br>Banu : Wah, foto-foto itu membuktikan bahwa di tengah kesulitan pun, masih ada kepedulian dan kekuatan yang luar biasa di dalam manusia.<br>Wina : Aku rasa, foto itu hanya menarik karena harganya mahal dan akan menggegerkan balai lelang internasional.<br>Fajar : Cerita di balik kedua foto itu justru lebih kuat dari foto itu sendiri. Ada pesan kemanusiaan yang mendalam.<br><br>Berdasarkan teks, manakah pernyataan yang menggambarkan kondisi fisik dan mental tokoh Aku selama perjalanan?<br><br>Pilihlah jawaban benar! Jawaban benar lebih dari satu.",
         pilihan: [
             "Merasa bersemangat dan gembira.",
             "Merasa tidak nyaman karena kedinginan.",
